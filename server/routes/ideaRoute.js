@@ -44,10 +44,52 @@ router
 router
 // Endpoint to get idea by id
 .get('/:id', (request, result) => {
-  let requestedIdeaId = request.params.id;
-  let requestedIdea = ideas.find(idea => idea.id === requestedIdeaId);
+  let idOfRequestedIdea = request.params.id;
+  let requestedIdea = ideas.find(idea => idea.id === idOfRequestedIdea);
   return result.status(200).send(requestedIdea);
 })
+
+// Endpoint to update existing idea by id
+.put('/:id', (request, response) => {
+  let idOfIdeaToUpdate = request.params.id;
+  let updatedIdea
+  // Retrieve idea to update
+  ideaToUpdate = ideas.find(idea => idea.id === idOfIdeaToUpdate);
+
+  if(ideaToUpdate.id) {
+    updatedIdea = {
+      "id": ideaToUpdate.id,
+      "userId": ideaToUpdate.userId,
+      "title": request.body.title,
+      "description": request.body.description,
+      "category": request.body.category,
+      "tools": request.body.tools,
+      "parts": request.body.parts,
+      "completed": ideaToUpdate.completed,
+      "link": request.body.link,
+      "notes": request.body.notes,
+      "timestamp": ideaToUpdate.timestamp
+    }
+  
+    fs.readFile('./data/data.json', (err, data) => {
+      if(err) throw err;
+      // Storing existing ideas into an array
+      let originalIdeasArray = JSON.parse(data);
+      
+      // Storing all ideas except the one to be update
+      let ideasArrayWithoutUpdatedIdea = originalIdeasArray.filter(idea => idea.id !== idOfIdeaToUpdate);
+  
+      // New array with updated idea
+      let ideasArrayIncludeUpdatedIdea = [...ideasArrayWithoutUpdatedIdea, updatedIdea];
+  
+      // Writing the new array to the file
+      fs.writeFile('./data/data.json',
+        JSON.stringify(ideasArrayIncludeUpdatedIdea), err => console.log(err))
+    })
+  } else return res.status(400).send("Please send valid data in correct format.")
+  return response.status(200).send(updatedIdea);
+})
+
 // Endpoint to delete idea by id
 .delete('/:id', (request, response) => {
   let idOfIdeaToDelete = request.params.id;
