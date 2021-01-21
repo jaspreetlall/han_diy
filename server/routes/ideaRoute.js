@@ -1,4 +1,4 @@
-const { response } = require("express");
+const { response, request } = require("express");
 const express = require("express");
 const router = express.Router();
 const ideas = require("../data/data.json");
@@ -28,7 +28,7 @@ router
 
   fs.readFile('./data/data.json', (err, data) => {
     if(err) throw err;
-    // Storing ideas into an array
+    // Storing existing ideas into an array
     let originalIdeasArray = JSON.parse(data);
     // Adding new idea with original array
     // and storing into new array 
@@ -47,6 +47,21 @@ router
   let requestedIdeaId = request.params.id;
   let requestedIdea = ideas.find(idea => idea.id === requestedIdeaId);
   return result.status(200).send(requestedIdea);
+})
+// Endpoint to delete idea by id
+.delete('/:id', (request, response) => {
+  let idOfIdeaToDelete = request.params.id;
+  fs.readFile('./data/data.json', (err, data) => {
+    if(err) throw err;
+    // Storing existing ideas into an array
+    let originalIdeasArray = JSON.parse(data);
+    // Storing all ideas except the one to be deleted
+    let ideasArrayAfterDelete = originalIdeasArray.filter(idea => idea.id !== idOfIdeaToDelete);
+    // Writing the new array to the file
+    fs.writeFile('./data/data.json',
+      JSON.stringify(ideasArrayAfterDelete), err => console.log(err))
+  })
+  return response.status(200).send(`${idOfIdeaToDelete} was successfully deleted.`);
 })
 
 module.exports = router;
