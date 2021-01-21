@@ -9,6 +9,7 @@ dotenv.config();
 
 // Using CORS to bypass security measures
 app.use(cors());
+app.use(express.json());
 
 // Using the Routes
 app.use("/idea", ideaRoute)
