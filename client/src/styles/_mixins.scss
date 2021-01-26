@@ -1,0 +1,94 @@
+// Flex Mixins
+
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin flex-center($direction: row) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: center;
+	align-items: center;
+}
+
+// Font Style mixins
+@mixin fs-app-name {
+	font-family: "Ultra";
+	line-height: 3.08rem;
+	font-size: 2.4rem;
+}
+
+@mixin fs-hero-title {
+	line-height: 5.83rem;
+	font-size: 4.8rem;
+	font-weight: 400;
+}
+
+@mixin fs-page-title {
+	line-height: 2.92rem;
+	font-size: 2.4rem;
+	font-weight: 600;
+}
+
+@mixin fs-page-sub-title {
+	line-height: 2.92rem;
+	font-size: 2.4rem;
+	font-weight: 600;
+}
+
+@mixin fs-paragraph {
+	line-height: 1.46rem;
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+
+@mixin fs-input-title {
+	line-height: 1.46rem;
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+
+@mixin fs-nav-link {
+	line-height: 1.46rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+@mixin fs-button {
+	line-height: 1.58rem;
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+
+@mixin fs-tiny-button {
+	line-height: 1.46rem;
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+
+@mixin fs-card-title {
+	line-height: 2.19rem;
+	font-size: 1.8rem;
+	font-weight: 700;
+}
+
+@mixin fs-card-status {
+	line-height: 1.215rem;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+@mixin fs-detail-title {
+	line-height: 3.89rem;
+	font-size: 3.2rem;
+	font-weight: 700;
+}
+
+@mixin fs-detail-text {
+	line-height: 1.7rem;
+	font-size: 1.4rem;
+	font-weight: 400;
+}

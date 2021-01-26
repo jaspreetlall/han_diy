@@ -1,0 +1,57 @@
+@import "../../styles/fonts";
+@import "../styles/variables";
+
+html {
+	box-sizing: border-box;
+	font-size: 10px;
+	background-color: $fill-han-diy-light;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+hr,
+ul,
+li,
+img,
+p,
+hr,
+input,
+label,
+form,
+button {
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	font-family: "Cabin";
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+select {
+	background: transparent;
+	background-image: url("../assets/icons/arrow_drop_down-24px.svg");
+	background-repeat: no-repeat;
+	background-position-x: 95%;
+	background-position-y: 5px;
+	height: 36px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
