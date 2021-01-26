@@ -1,2 +1,36 @@
 @import "../../styles/global";
 @import "../../styles/mixins";
+
+.header {
+	background-color: $fill-han-diy-primary;
+	height: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	& + * {
+		padding-top: 50px;
+	}
+	&__block {
+		@include flex(row, space-between, center);
+		height: 100%;
+		&-logo {
+			&-img {
+				height: 22px;
+				filter: $shadow-filter-drop;
+			}
+		}
+		&-appname {
+			@include fs-app-header;
+			color: $color-light;
+			text-shadow: $shadow-text;
+		}
+		&-user {
+			height: 34px;
+			&-img {
+				height: 34px;
+				filter: $shadow-filter-drop;
+			}
+		}
+	}
+}

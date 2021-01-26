@@ -15,10 +15,10 @@
 }
 
 // Font Style mixins
-@mixin fs-app-name {
+@mixin fs-app-header {
 	font-family: "Ultra";
 	line-height: 3.08rem;
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 }
 
 @mixin fs-hero-title {
