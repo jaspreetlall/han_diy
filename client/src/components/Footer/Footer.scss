@@ -1,1 +1,36 @@
- 
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.footer {
+	background-color: $fill-han-diy-primary;
+	height: 70px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	&__block {
+		@include flex(row, space-around, center);
+		height: 100%;
+		&-link {
+			@include flex(column, flex-start, center);
+			padding: 0 8px 8px 8px;
+			width: 65px;
+			&--active {
+				border-bottom: 2px solid $fill-han-diy-light;
+			}
+			&-icon {
+				height: 24px;
+				margin: 6px;
+				&-img {
+					height: 24px;
+					filter: $shadow-filter-drop;
+				}
+			}
+			&-text {
+				@include fs-nav-link;
+				color: $color-light;
+				text-shadow: $shadow-text;
+			}
+		}
+	}
+}
