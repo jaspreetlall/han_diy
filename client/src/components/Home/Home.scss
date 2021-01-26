@@ -1,1 +1,40 @@
- 
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.home {
+	&__block {
+		&-hero {
+			@include flex(column, center, flex-start);
+			height: 40vh;
+			background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+				url(../../assets/images/diy-medium.jpg);
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			&-title {
+				@include fs-hero-title;
+				color: $color-light;
+			}
+		}
+		&-body {
+			padding-bottom: 30px;
+			&-title {
+				@include fs-page-title;
+				padding-top: 20px;
+				color: $color-dark;
+			}
+			&-para {
+				&-title {
+					@include fs-page-sub-title;
+					padding-top: 20px;
+					color: $color-han-diy;
+				}
+				&-text {
+					@include fs-paragraph;
+					padding-top: 4px;
+					color: $color-dark;
+				}
+			}
+		}
+	}
+}
