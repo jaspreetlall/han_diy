@@ -8,7 +8,17 @@ const fs = require('fs');
 router
 // Endpoint to get the list of all ideas
 .get('/', (_request, response) => {
-  return response.status(200).send(ideas);
+  let ideaList = [];
+  ideas.forEach((idea) => {
+    let ideaObject = {
+      "id": idea.id,
+      "title": idea.title,
+      "imageUrl": idea.imageUrl,
+      "done": idea.done,
+    }
+    ideaList.push(ideaObject);
+  })
+  return response.status(200).send(ideaList);
 })
 // Endpoint to post an idea
 .post('/', (request, response) => {
@@ -21,7 +31,7 @@ router
     "category": request.body.category,
     "tools": request.body.tools,
     "parts": request.body.parts,
-    "completed": false,
+    "done": false,
     "link": request.body.link,
     "notes": request.body.notes,
     "timestamp": Date.now()
@@ -67,7 +77,7 @@ router
       "category": request.body.category,
       "tools": request.body.tools,
       "parts": request.body.parts,
-      "completed": ideaToUpdate.completed,
+      "done": ideaToUpdate.done,
       "link": request.body.link,
       "notes": request.body.notes,
       "timestamp": ideaToUpdate.timestamp
