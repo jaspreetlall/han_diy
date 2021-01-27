@@ -1,1 +1,53 @@
- 
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.about {
+	&__block {
+		&-app {
+			&-logo {
+				padding-top: 20px;
+				&-img {
+					height: 64px;
+					border-radius: $border-radius;
+				}
+			}
+			&-info {
+				&-title {
+					@include fs-page-title;
+					color: $color-dark;
+					padding-top: 20px;
+				}
+				&-para {
+					@include fs-paragraph;
+					color: $color-dark;
+				}
+			}
+		}
+		&-dev {
+			&-title {
+				@include fs-page-sub-title;
+				padding-top: 20px;
+				color: $color-han-diy;
+			}
+			&-contact {
+				@include flex(row, flex-start, center);
+				padding-top: 20px;
+				&-logo {
+					width: 40px;
+				}
+				&-detail {
+					padding: 0 0 0 10px;
+					&-service {
+						@include fs-paragraph;
+						color: $color-sub-dark;
+					}
+					&-link {
+						@include fs-paragraph;
+						padding-top: 6px;
+						color: $color-dark;
+					}
+				}
+			}
+		}
+	}
+}
