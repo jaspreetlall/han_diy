@@ -59,8 +59,8 @@
 }
 
 @mixin fs-button {
-	line-height: 1.58rem;
-	font-size: 1.3rem;
+	line-height: 1.7rem;
+	font-size: 1.4rem;
 	font-weight: 700;
 }
 
@@ -99,10 +99,14 @@
 @mixin button-square {
 	border-radius: $border-radius;
 	text-align: center;
-	margin-left: 8px;
 	height: 36px;
 	width: 36px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: none;
+	padding: 0;
+	outline: inherit;
+	cursor: pointer;
+	font: inherit;
 }
