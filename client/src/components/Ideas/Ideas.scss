@@ -37,10 +37,12 @@
 				&-icon {
 					@include button-square;
 					background-color: $fill-han-diy-secondary;
+					margin-left: 8px;
 					&--view {
 						background-color: $fill-han-diy-primary;
 					}
 					&-img {
+						filter: $shadow-filter-drop;
 						width: 24px;
 					}
 				}
