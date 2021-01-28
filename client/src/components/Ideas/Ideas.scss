@@ -1,1 +1,50 @@
- 
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.ideas {
+	&__block {
+		padding-bottom: 30px;
+		&-title {
+			@include fs-page-title;
+			color: $color-dark;
+			padding: 20px 0 20px 0;
+		}
+		&-card {
+			@include flex(column, space-between, flex-end);
+			filter: $shadow-filter-drop;
+			border-radius: $border-radius;
+			height: 120px;
+			margin-top: 20px;
+			padding: 8px;
+			&-info {
+				width: 66%;
+				&-title {
+					@include fs-card-title;
+					color: $color-dark;
+				}
+				&-status {
+					@include fs-card-status;
+					color: $color-sub-dark;
+					font-style: italic;
+					&--complete {
+						color: $color-han-diy;
+						font-style: normal;
+					}
+				}
+			}
+			&-links {
+				@include flex(row);
+				&-icon {
+					@include button-square;
+					background-color: $fill-han-diy-secondary;
+					&--view {
+						background-color: $fill-han-diy-primary;
+					}
+					&-img {
+						width: 24px;
+					}
+				}
+			}
+		}
+	}
+}
