@@ -75,12 +75,15 @@
 			}
 			&--status {
 				@include fs-button;
-				background-color: $fill-han-diy-primary;
+				background-color: $fill-han-diy-secondary;
 				text-shadow: $shadow-text;
 				margin-left: 8px;
 				color: $color-light;
 				width: auto;
 				padding: 10px;
+				&-pending {
+					background-color: $fill-han-diy-primary;
+				}
 			}
 			&-icon {
 				filter: $shadow-filter-drop;
