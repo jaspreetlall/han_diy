@@ -47,6 +47,9 @@
 					width: 48%;
 					&--add {
 						background-color: $fill-han-diy-primary;
+						&:disabled {
+							background-color: $fill-disabled-button;
+						}
 					}
 					&-icon {
 						filter: $shadow-filter-drop;
