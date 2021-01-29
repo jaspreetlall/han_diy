@@ -22,15 +22,24 @@ router
 })
 // Endpoint to post an idea
 .post('/', (request, response) => {
+
+  // Function to split string at commas to an array
+  const splitStringAtCommaToArray = (stringToSplit) => {
+    let arrayFromString = stringToSplit.split(', ');
+    return arrayFromString;
+  }
+
   let ideaToBeAdded = {
     "id": uuid(),
     "userId": request.body.userId,
     "title": request.body.title,
-    "imageUrl": request.body.imageUrl || "localhost:8080/images/imageplaceholder.jpg",
+    "imageUrl": request.body.imageUrl || "http://localhost:8080/images/imageplaceholder.jpg",
     "description": request.body.description,
     "category": request.body.category,
-    "tools": request.body.tools,
-    "parts": request.body.parts,
+    // Splitting incoming comma separated string
+    // to store tools and parts needed
+    "tools": splitStringAtCommaToArray(request.body.tools),
+    "parts": splitStringAtCommaToArray(request.body.parts),
     "done": false,
     "link": request.body.link,
     "notes": request.body.notes,
