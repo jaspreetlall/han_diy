@@ -73,7 +73,11 @@ class Ideas extends Component {
       )
     } else {
       return (
-        <h2 className="ideas__block-card-info-title container">Create ideas to see here.</h2>
+        <section className="ideas">
+          <div className="ideas__block container">
+            <h2 className="ideas__block-title">Please wait...</h2>
+          </div>
+        </section>
       )
     }
   }
