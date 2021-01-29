@@ -1,1 +1,91 @@
- 
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.idea {
+	&__card {
+		border-radius: $border-radius;
+		background-color: $fill-white;
+		filter: $shadow-filter-drop;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		overflow: hidden;
+		&-header {
+			@include flex(row, flex-start, flex-end);
+			height: 200px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			&::before {
+				content: "";
+				display: inline-block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				height: 200px;
+				background: linear-gradient(
+					180deg,
+					rgba(0, 0, 0, 0) 0%,
+					rgba(255, 255, 255, 1) 80%
+				);
+			}
+			&-title {
+				@include fs-detail-title;
+				width: 100%;
+				padding-right: 20px;
+				position: relative;
+				color: $color-dark;
+				margin: 0 8px 0 8px;
+				z-index: 1;
+			}
+		}
+		&-body {
+			border-top: $border-style;
+			margin: 0 8px 20px 8px;
+			&-detail {
+				overflow: hidden;
+				&-title {
+					@include fs-detail-text;
+					padding-top: 16px;
+					padding-right: 4px;
+					color: $color-sub-dark;
+				}
+				&-para {
+					@include fs-detail-text;
+					color: $color-dark;
+					padding-top: 6px;
+					display: inline-block;
+					max-width: 100%;
+				}
+				&--single-line {
+					@include flex(row, flex-start, baseline);
+				}
+			}
+		}
+	}
+	&__actions {
+		@include flex(row, flex-end, center);
+		padding-bottom: 20px;
+		&-button {
+			@include button-square;
+			background-color: $fill-han-diy-secondary;
+			&--delete {
+				margin-right: auto;
+				background-color: $fill-warning;
+			}
+			&--status {
+				@include fs-button;
+				background-color: $fill-han-diy-primary;
+				text-shadow: $shadow-text;
+				margin-left: 8px;
+				color: $color-light;
+				width: auto;
+				padding: 10px;
+			}
+			&-icon {
+				filter: $shadow-filter-drop;
+				width: 24px;
+			}
+		}
+	}
+}
