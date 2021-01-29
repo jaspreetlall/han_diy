@@ -6,15 +6,18 @@ import AddIcon from '../../assets/icons/create-white-48dp.svg';
 function IdeaCreate() {
 
   const categories =
-    [
-      "Build",
-      "Craft",
-      "Decorate",
-      "Paint",
-      "Repair",
-      "Upcycle",
-      "Other"
-    ];
+  [
+    "Build",
+    "Craft",
+    "Decorate",
+    "Paint",
+    "Repair",
+    "Upcycle",
+    "Other"
+  ];
+
+  // TODO - implement create idea functionality
+  // TODO - add form validation
 
   return (
     <section className="create">

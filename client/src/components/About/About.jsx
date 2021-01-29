@@ -4,6 +4,9 @@ import AppIcon from '../../assets/icons/about-app.png';
 import GitHubIcon from '../../assets/icons/GitHub-Mark-120px-plus.png';
 import LinkedInIcon from '../../assets/icons/LI-In-Bug.png';
 
+// TODO - Replace Lorem with "About Han-DIY"
+// TODO - Add tech stack used
+
 function About() {
   return (
     <article className="about">

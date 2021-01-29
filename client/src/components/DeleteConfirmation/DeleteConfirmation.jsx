@@ -4,6 +4,8 @@ import './DeleteConfirmation.scss';
 function DeleteConfirmation({ideaId, cancelButtonHandler}) {
 
   // TODO - Implement Delete functionality
+  // TODO - Reroute to view ideas page after successful delete
+
   console.log(ideaId);
 
   return (

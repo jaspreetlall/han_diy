@@ -17,6 +17,8 @@ function IdeaEdit() {
   ];
 
   // TODO - implement edit idea functionality 
+  // TODO - pre-fill input fields, ready to edit
+  // TODO - add form validation
 
   return (
     <section className="edit">
