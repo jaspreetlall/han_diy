@@ -1,12 +1,10 @@
 import React from 'react';
 import './DeleteConfirmation.scss';
 
-function DeleteConfirmation({ideaId, cancelButtonHandler}) {
+function DeleteConfirmation({cancelButtonHandler, deleteConfirmationHandler}) {
 
   // TODO - Implement Delete functionality
   // TODO - Reroute to view ideas page after successful delete
-
-  console.log(ideaId);
 
   return (
     <div className="modal">
@@ -18,9 +16,12 @@ function DeleteConfirmation({ideaId, cancelButtonHandler}) {
         <div className="modal__block-buttons">
           <button
             className="modal__block-buttons-cancel"
-            onClick={cancelButtonHandler}
-          >Keep</button>
-          <button className="modal__block-buttons-delete">Delete</button>
+            onClick={cancelButtonHandler}>Keep
+          </button>
+          <button
+            className="modal__block-buttons-delete"
+            onClick={deleteConfirmationHandler}>Delete
+          </button>
         </div>
       </div>
     </div>
