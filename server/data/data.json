@@ -6,11 +6,11 @@
       "imageUrl": "http://localhost:8080/images/bookshelf-speaker.jpg",
       "description": "Re-paint the front of speaker boxes. Wrap the sides with a vinyl wrap.",
       "category": "Repair",
-      "tools": ["Paint brush", "Paint brush", "Paint tray"],
+      "tools": ["Paint brush", "Scrapper", "Paint tray"],
       "parts": ["Paint", "Vinyl warp", "Masking tape", "Heat gun"],
       "done" : false,
-      "link": "https://www.youtube.com/watch?v=oA7jafMrqdk&ab_channel=CarAudioFabrication",
-      "notes": "Place orders in advance to avoid delays",
+      "link": "https://www.youtube.com/watch?v=oA7jafMrqdk",
+      "notes": "Place orders in advance to avoid delays.",
       "timestamp": 1568658780
     },
     {
@@ -24,7 +24,7 @@
       "parts": ["Raspberry pi zero", "Case", "Power supply", "MicroSD card"],
       "done" : true,
       "link": "https://pi-hole.net/",
-      "notes": "Hardwired network for better reliability",
+      "notes": "Hardwired network for better reliability.",
       "timestamp": 1586558580
     },
     {
@@ -52,7 +52,7 @@
       "parts": ["Plastic container", "Spray paint"],
       "done" : false,
       "link": "https://www.bybrittanygoldwyn.com/make-an-easy-diy-monitor-stand/",
-      "notes": "Height between 15cm to 18cm",
+      "notes": "Height between 15cm to 18cm.",
       "timestamp": 1592318160
     },
     {
