@@ -10,27 +10,24 @@ import './IdeaDetails.scss';
 const ideaUrl = "http://localhost:8080/idea/";
 
 function IdeaDetails(props) {
-
   const requestedIdeaId = props.match.params.id;
 
   const [ idea, setIdea ] = useState({});
   const [ displayModal, setDisplayModal ] = useState(false);
 
+  // Delete button handler
+  // to display confirmation modal
   const deleteButtonHandler = () => {
     setDisplayModal(true);
   }
 
+  // Cancel button handler
+  // to hide confirmation modal
   const cancelButtonHandler = () => {
     setDisplayModal(false);
   }
 
-  const deleteConfirmationHandler = () => {
-    Axios
-    .delete(`${ideaUrl}${idea.id}`)
-    .then(props.history.push("/"))
-    .catch(err => console.log(err))
-  }
-
+  // Initial load of data from api
   useEffect(() => {
     const apiFetchCall = async () => {
       await Axios
@@ -41,12 +38,39 @@ function IdeaDetails(props) {
     apiFetchCall();
   }, [requestedIdeaId]);
 
-  
+  // Function used by confirmation modal component
+  // to make api delete call.
+  const deleteConfirmationHandler = () => {
+    Axios
+    .delete(`${ideaUrl}${idea.id}`)
+    .then(props.history.push("/"))
+    .catch(err => console.log(err))
+  }
 
-  // TODO - Change status button functionality
-  // TODO - Clear console.log's
+  // Function to update the "Done" status
+  // when change status button is clicked
+  const changeStatusHandler = () => {
+    let updatedIdea =
+    {
+      title: idea.title,
+      imageUrl: idea.imageUrl,
+      description: idea.description,
+      category: idea.category,
+      tools: idea.tools.join(', '),
+      parts: idea.parts.join(', '),
+      done: !idea.done,
+      link: idea.link,
+      notes: idea.notes,
+      timestamp: idea.timestamp,
+    }
+    Axios
+    .put(`${ideaUrl}${idea.id}`, updatedIdea)
+    .then((res) => {
+      setIdea(res.data);
+    })
+    .catch((err) => console.log(err));
+  }
 
-  // TODO - FIX DATE CONVERSION
   // Converting timestamp to a human readable date
   let utcDate = (new Date(idea.timestamp)).toLocaleDateString('en-US');
 
@@ -112,7 +136,14 @@ function IdeaDetails(props) {
             <Link className="idea__actions-button" to={`/idea/${idea.id}/edit`}>
               <img className="idea__actions-button-icon" src={EditIcon} alt="Edit icon"/>
             </Link>
-            <button className={idea.done ? "idea__actions-button idea__actions-button--status" : "idea__actions-button idea__actions-button--status idea__actions-button--status-pending"}>Change Status</button>
+            <button
+              onClick={changeStatusHandler}
+              className={
+                idea.done
+                ? "idea__actions-button idea__actions-button--status"
+                : "idea__actions-button idea__actions-button--status idea__actions-button--status-pending"
+              }>Change Status
+            </button>
           </div>
         </article>
         <div className={displayModal ? "delete-modal--show" : "delete-modal--hidden"}>
@@ -127,14 +158,8 @@ function IdeaDetails(props) {
     return (
       <article className="idea">
         <div className="idea__card container">
-          <header
-            className="idea__card-header">
-            <TextClamp
-              className="idea__card-header-title"
-              element="h1"
-              text="Please wait..."
-              lines="2"
-            />
+          <header className="idea__card-header">
+            <h2 className="idea__card-header-title">Please wait...</h2>
           </header>
         </div>
       </article>
