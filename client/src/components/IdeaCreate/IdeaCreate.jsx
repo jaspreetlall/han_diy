@@ -7,19 +7,9 @@ import Axios from 'axios';
 const ideaUrl = "http://localhost:8080/idea/";
 
 // TODO - Redirect to idea after creating.
+// TODO - Disable add button until required fields have data
 
 function IdeaCreate(props) {
-
-  const categories =
-  [
-    "Build",
-    "Craft",
-    "Decorate",
-    "Paint",
-    "Repair",
-    "Upcycle",
-    "Other"
-  ];
 
   const [formData, setFormData] = useState({
     userId: "2fc8e7ee-ee37-483f-93dc-116389646d4f",
@@ -73,14 +63,17 @@ function IdeaCreate(props) {
             <select
               className="create__block-form-input-field"
               name="category"
-              value={formData.category}
+              required
               onChange={handleChange}
               id="category">
-              {categories.map((category, index) => {
-                return(
-                  <option value={category} key={index}>{category}</option>
-                )
-              })}
+              <option value="">Choose Category</option>
+              <option value="Build">Build</option>
+              <option value="Craft">Craft</option>
+              <option value="Decorate">Decorate</option>
+              <option value="Paint">Paint</option>
+              <option value="Repair">Repair</option>
+              <option value="Upcycle">Upcycle</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div className="create__block-form-input">
