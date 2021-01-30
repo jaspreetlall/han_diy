@@ -23,6 +23,7 @@ function IdeaCreate(props) {
     notes: ''
   })
 
+  // Form submit handler
   const submitHandler = (e) => {
     e.preventDefault();
     Axios
@@ -31,6 +32,8 @@ function IdeaCreate(props) {
     .catch(err => console.log(err))
   }
 
+  // Function to handle form input changes
+  // and set values in state
   const handleChange = (e) => {
     const {name, value} = e.target;
     setFormData(prev => ({...prev, [name]: value}))
