@@ -7,6 +7,8 @@ import ViewIcon from '../../assets/icons/view-white-48dp.svg';
 
 const ideasURL = "http://localhost:8080/idea/"
 
+// TODO - add filter buttons
+
 function Ideas() {
   const [ ideaArray, setIdeaArray ] = useState([]);
 
@@ -79,9 +81,3 @@ function Ideas() {
 }
 
 export default Ideas
-
-
-
-
-
-  
