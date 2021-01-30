@@ -5,6 +5,12 @@ const ideas = require("../data/data.json");
 const { v4: uuid } = require('uuid');
 const fs = require('fs');
 
+// Function to split string at commas to an array
+const splitStringAtCommaToArray = (stringToSplit) => {
+  let arrayFromString = stringToSplit.split(', ');
+  return arrayFromString;
+}
+
 router
 // Endpoint to get the list of all ideas
 .get('/', (_request, response) => {
@@ -22,12 +28,6 @@ router
 })
 // Endpoint to post an idea
 .post('/', (request, response) => {
-
-  // Function to split string at commas to an array
-  const splitStringAtCommaToArray = (stringToSplit) => {
-    let arrayFromString = stringToSplit.split(', ');
-    return arrayFromString;
-  }
 
   let ideaToBeAdded = {
     "id": uuid(),
@@ -84,9 +84,11 @@ router
       "imageUrl": request.body.imageUrl || "localhost:8080/images/imageplaceholder.jpg",
       "description": request.body.description,
       "category": request.body.category,
-      "tools": request.body.tools,
-      "parts": request.body.parts,
-      "done": ideaToUpdate.done,
+      // Splitting incoming comma separated string
+      // to store tools and parts needed
+      "tools": splitStringAtCommaToArray(request.body.tools),
+      "parts": splitStringAtCommaToArray(request.body.parts),
+      "done": request.body.done,
       "link": request.body.link,
       "notes": request.body.notes,
       "timestamp": ideaToUpdate.timestamp

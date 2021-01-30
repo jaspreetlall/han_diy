@@ -11,7 +11,7 @@
       "done" : false,
       "link": "https://www.youtube.com/watch?v=oA7jafMrqdk",
       "notes": "Place orders in advance to avoid delays.",
-      "timestamp": 1568658780
+      "timestamp": 1568658780000
     },
     {
       "id": "85a6930d-68e8-47be-ac74-abb3836cec4a",
@@ -25,7 +25,7 @@
       "done" : true,
       "link": "https://pi-hole.net/",
       "notes": "Hardwired network for better reliability.",
-      "timestamp": 1586558580
+      "timestamp": 1586558580000
     },
     {
       "id": "312cf99c-3f34-4e0c-96a0-a11c8bb3dea5",
@@ -39,7 +39,7 @@
       "done" : false,
       "link": "https://www.countryliving.com/diy-crafts/how-to/g1963/diy-coffee-tables/",
       "notes": "Try diifferent oil finishes before finalising.",
-      "timestamp": 1610270700
+      "timestamp": 1610270700000
     },
     {
       "id": "79a778e6-fea3-40d9-b834-3b93d3f0fd62",
@@ -53,7 +53,7 @@
       "done" : false,
       "link": "https://www.bybrittanygoldwyn.com/make-an-easy-diy-monitor-stand/",
       "notes": "Height between 15cm to 18cm.",
-      "timestamp": 1592318160
+      "timestamp": 1592318160000
     },
     {
       "id": "3e25a7b8-8f3f-4d88-83b8-5a6815005c13",
@@ -67,6 +67,6 @@
       "done": true,
       "link": "https://buildmypc.net/",
       "notes": "Minimum requirements include a 4-core CPU and 8GB memory. Dual monitors highly recomended.",
-      "timestamp": 1584272220 
+      "timestamp": 1584272220000
     }
   ]
