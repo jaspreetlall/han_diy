@@ -20,6 +20,7 @@ router
       "id": idea.id,
       "title": idea.title,
       "imageUrl": idea.imageUrl,
+      "category" : idea.category,
       "done": idea.done,
     }
     ideaList.push(ideaObject);
