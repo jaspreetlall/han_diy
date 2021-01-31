@@ -8,6 +8,11 @@ import ViewIcon from '../../assets/icons/view-white-48dp.svg';
 const ideasURL = "http://localhost:8080/idea/"
 
 function Ideas() {
+  
+  useEffect(() => {
+    document.title = `Han-DIY | Saved ideas`;
+  }, []);
+
   // Storing all ideas from api
   const [ ideaArray, setIdeaArray ] = useState([]);
   // Filter string to filter ideas by category

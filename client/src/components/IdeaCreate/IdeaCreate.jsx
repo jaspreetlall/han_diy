@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './IdeaCreate.scss';
 import CancelIcon from '../../assets/icons/cancel-white-48dp.svg';
 import AddIcon from '../../assets/icons/create-white-48dp.svg';
@@ -7,11 +7,14 @@ import Axios from 'axios';
 const ideaUrl = "http://localhost:8080/idea/";
 
 // TODO - Redirect to idea after creating.
-// TODO - Disable add button until required fields have data
 
 function IdeaCreate(props) {
 
-  const [formData, setFormData] = useState({
+  useEffect(() => {
+    document.title = "Han-DIY | Create";
+  }, []);
+
+  const [ formData, setFormData ] = useState({
     userId: "2fc8e7ee-ee37-483f-93dc-116389646d4f",
     title: '',
     imageUrl: '',
@@ -23,6 +26,16 @@ function IdeaCreate(props) {
     notes: ''
   })
 
+  const [ disableAddButton, setDisableAddButton ] = useState(true);
+
+  // Function to handle form input changes
+  // and set values in state
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData(prev => ({...prev, [name]: value}))
+    buttonStatus();
+  }
+
   // Form submit handler
   const submitHandler = (e) => {
     e.preventDefault();
@@ -32,11 +45,14 @@ function IdeaCreate(props) {
     .catch(err => console.log(err))
   }
 
-  // Function to handle form input changes
-  // and set values in state
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormData(prev => ({...prev, [name]: value}))
+  // Enable / Disable add button depending 
+  // whether required fields have data
+  const buttonStatus = () => {
+    if (formData.title && formData.category && formData.description) {
+      setDisableAddButton(false);
+    } else {
+      setDisableAddButton(true);
+    }
   }
 
   return (
@@ -55,10 +71,10 @@ function IdeaCreate(props) {
               type="text"
               id="title"
               name="title"
-              required
               autoFocus
               value={formData.title}
               onChange={handleChange}
+              onBlur={handleChange}
               placeholder="Title for your idea"/>
           </div>
           <div className="create__block-form-input">
@@ -66,8 +82,9 @@ function IdeaCreate(props) {
             <select
               className="create__block-form-input-field"
               name="category"
-              required
+              value={formData.category}
               onChange={handleChange}
+              onBlur={handleChange}
               id="category">
               <option value="">Choose Category</option>
               <option value="Build">Build</option>
@@ -86,9 +103,9 @@ function IdeaCreate(props) {
               type="text"
               id="description"
               name="description"
-              required
               value={formData.description}
               onChange={handleChange}
+              onBlur={handleChange}
               placeholder="Description of your idea"
             />
           </div>
@@ -145,7 +162,10 @@ function IdeaCreate(props) {
               <img className="create__block-form-input-button-icon" src={CancelIcon} alt="Cancel icon"/>
               <span className="create__block-form-input-button-text">Cancel</span>
             </button>
-            <button type="submit" className="create__block-form-input-button create__block-form-input-button--add">
+            <button
+              type="submit"
+              disabled={disableAddButton}
+              className="create__block-form-input-button create__block-form-input-button--add">
               <img className="create__block-form-input-button-icon" src={AddIcon} alt="Add icon"/>
               <span className="create__block-form-input-button-text">Add</span>
             </button>

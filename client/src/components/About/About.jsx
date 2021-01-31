@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './About.scss';
 import AppIcon from '../../assets/icons/about-app.png';
 import GitHubIcon from '../../assets/icons/GitHub-Mark-120px-plus.png';
@@ -8,6 +8,11 @@ import LinkedInIcon from '../../assets/icons/LI-In-Bug.png';
 // TODO - Add tech stack used
 
 function About() {
+
+  useEffect(() => {
+    document.title = "Han-DIY | About";
+  }, []);
+
   return (
     <article className="about">
       <div className="about__block container">

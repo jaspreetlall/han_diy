@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.scss';
 
 function Home() {
+
+  useEffect(() => {
+    document.title = "Han-DIY | Home";
+  }, []);
+
   return (
     <section className="home">
       <div className="home__block">

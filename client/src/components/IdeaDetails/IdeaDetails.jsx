@@ -10,11 +10,16 @@ import './IdeaDetails.scss';
 const ideaUrl = "http://localhost:8080/idea/";
 
 function IdeaDetails(props) {
-  const requestedIdeaId = props.match.params.id;
-
+  
   const [ idea, setIdea ] = useState({});
   const [ displayModal, setDisplayModal ] = useState(false);
 
+  useEffect(() => {
+    document.title = `Han-DIY | ${idea.title}`;
+  }, [idea.title]);
+  
+  const requestedIdeaId = props.match.params.id;
+  
   // Delete button handler
   // to display confirmation modal
   const deleteButtonHandler = () => {
