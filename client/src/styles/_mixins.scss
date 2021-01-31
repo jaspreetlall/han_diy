@@ -64,9 +64,9 @@
 	font-weight: 700;
 }
 
-@mixin fs-tiny-button {
-	line-height: 1.46rem;
-	font-size: 1.2rem;
+@mixin fs-button-mini {
+	line-height: 1.7rem;
+	font-size: 1.4rem;
 	font-weight: 400;
 }
 
@@ -97,15 +97,29 @@
 // Button mixins
 
 @mixin button {
+	@include flex(row, center, center);
 	border-radius: $border-radius;
 	text-align: center;
 	height: 36px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	border: none;
 	padding: 0;
 	outline: inherit;
 	cursor: pointer;
 	font: inherit;
+}
+
+@mixin button-mini {
+	@include fs-button-mini;
+	border-radius: $border-radius;
+	background-color: $fill-white;
+	filter: $shadow-filter-drop;
+	color: $color-dark;
+	text-align: center;
+	border: none;
+	outline: inherit;
+	cursor: pointer;
+	font: inherit;
+	padding: 0 7px 0 7px;
+	height: 22px;
+	margin: 8px 9px 0 0;
 }
