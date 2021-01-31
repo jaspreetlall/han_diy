@@ -48,7 +48,9 @@ function IdeaDetails(props) {
   const deleteConfirmationHandler = () => {
     Axios
     .delete(`${ideaUrl}${idea.id}`)
-    .then(props.history.push("/"))
+    .then(setTimeout(() => {
+      props.history.push(`/ideas`)
+    }, 500))
     .catch(err => console.log(err))
   }
 

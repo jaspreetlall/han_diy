@@ -1,10 +1,10 @@
 import React from 'react';
 import './DeleteConfirmation.scss';
 
+// Component requires handlers for cancel & delete
+// button to be passed as props
+
 function DeleteConfirmation({cancelButtonHandler, deleteConfirmationHandler}) {
-
-  // TODO - Reroute to view ideas page after successful delete
-
   return (
     <div className="modal">
       <div className="modal__block container">

@@ -6,8 +6,6 @@ import SaveIcon from '../../assets/icons/done-white-48dp.svg';
 
 const ideaUrl = "http://localhost:8080/idea/";
 
-// TODO - Redirect to idea after editing.
-
 function IdeaEdit(props) {
 
   useEffect(() => {
@@ -60,8 +58,15 @@ function IdeaEdit(props) {
     e.preventDefault();
     Axios
     .put(`${ideaUrl}${requestedIdeaId}`, formData)
-    .then(props.history.push('/'))
+    .then(res => setTimeout(() => {
+      props.history.push(`/idea/${res.data.id}/details`)
+    }, 500))
     .catch((err) => console.log(err));
+  }
+
+  // Cancel handler
+  const cancelButtonHandler = () => {
+    props.history.goBack();
   }
 
   // Function to handle form input changes
@@ -185,7 +190,10 @@ function IdeaEdit(props) {
             />
           </div>
           <div className="edit__block-form-input edit__block-form-input--buttons">
-            <button type="button" className="edit__block-form-input-button">
+            <button
+              className="edit__block-form-input-button"
+              type="button"
+              onClick={cancelButtonHandler}>
               <img className="edit__block-form-input-button-icon" src={CancelIcon} alt="Cancel icon"/>
               <span className="edit__block-form-input-button-text">Cancel</span>
             </button>

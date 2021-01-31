@@ -6,8 +6,6 @@ import Axios from 'axios';
 
 const ideaUrl = "http://localhost:8080/idea/";
 
-// TODO - Redirect to idea after creating.
-
 function IdeaCreate(props) {
 
   useEffect(() => {
@@ -41,8 +39,15 @@ function IdeaCreate(props) {
     e.preventDefault();
     Axios
     .post(ideaUrl, formData)
-    .then(props.history.push('/'))
+    .then(res => setTimeout(() => {
+      props.history.push(`/idea/${res.data.id}/details`)
+    }, 500))
     .catch(err => console.log(err))
+  }
+
+  // Cancel handler
+  const cancelButtonHandler = () => {
+    props.history.goBack();
   }
 
   // Enable / Disable add button depending 
@@ -158,7 +163,10 @@ function IdeaCreate(props) {
             />
           </div>
           <div className="create__block-form-input create__block-form-input--buttons">
-            <button type="button" className="create__block-form-input-button">
+            <button
+              className="create__block-form-input-button"
+              type="button"
+              onClick={cancelButtonHandler}>
               <img className="create__block-form-input-button-icon" src={CancelIcon} alt="Cancel icon"/>
               <span className="create__block-form-input-button-text">Cancel</span>
             </button>
