@@ -21,6 +21,7 @@
 				&-para {
 					@include fs-paragraph;
 					color: $color-dark;
+					padding-top: 16px;
 				}
 			}
 		}

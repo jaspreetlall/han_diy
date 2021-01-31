@@ -4,9 +4,6 @@ import AppIcon from '../../assets/icons/about-app.png';
 import GitHubIcon from '../../assets/icons/GitHub-Mark-120px-plus.png';
 import LinkedInIcon from '../../assets/icons/LI-In-Bug.png';
 
-// TODO - Replace Lorem with "About Han-DIY"
-// TODO - Add tech stack used
-
 function About() {
 
   useEffect(() => {
@@ -21,8 +18,16 @@ function About() {
             <img className="about__block-app-logo-img" src={AppIcon} alt="Han-DIY logo"/>
           </div>
           <div className="about__block-app-info">
-            <h2 className="about__block-app-info-title">About Han-DIY</h2>
-            <p className="about__block-app-info-para">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit culpa a, dolores vero perspiciatis eum, ipsam rem velit aut illo eaque, tenetur sint. Maiores architecto aliquid, laudantium minus dolorum labore!</p>
+            <h2 className="about__block-app-info-title">Han-DIY</h2>
+            <p className="about__block-app-info-para">
+              Han-DIY is aimed to help you store all your DIY ideas with ease and keep them handy.
+            </p>
+            <p className="about__block-app-info-para">
+              Along with the title, description and category, you also have an option to add a list of parts and tools required. Additional notes or reference link can be added as well. The ideas can be viewed at a tap of a button.
+            </p>
+            <p className="about__block-app-info-para">
+              Once you bring an idea to reality, the idea can be marked as 'Completed'. 
+            </p>
           </div>
         </div>
         <div className="about__block-dev">
