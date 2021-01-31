@@ -9,6 +9,24 @@
 			color: $color-dark;
 			padding: 20px 0 20px 0;
 		}
+		&-categories {
+			&-title {
+				@include fs-input-title;
+				color: $color-dark;
+				// padding-bottom: 8px;
+			}
+			&-filter {
+				@include flex(row, flex-start, center);
+				flex-wrap: wrap;
+				&-button {
+					@include button-mini;
+					&--current {
+						background-color: $fill-han-diy-primary;
+						color: $color-light;
+					}
+				}
+			}
+		}
 		&-card {
 			@include flex(column, space-between, flex-end);
 			filter: $shadow-filter-drop;
@@ -35,9 +53,10 @@
 			&-links {
 				@include flex(row);
 				&-icon {
-					@include button-square;
+					@include button;
 					background-color: $fill-han-diy-secondary;
 					margin-left: 8px;
+					width: 36px;
 					&--view {
 						background-color: $fill-han-diy-primary;
 					}

@@ -7,21 +7,55 @@ import ViewIcon from '../../assets/icons/view-white-48dp.svg';
 
 const ideasURL = "http://localhost:8080/idea/"
 
-// TODO - add filter buttons
-
 function Ideas() {
+  // Storing all ideas from api
   const [ ideaArray, setIdeaArray ] = useState([]);
+  // Filter string to filter ideas by category
+  const [ ideaFilter, setIdeaFilter ] = useState('All');
+  // Array of categories(from ideas received from api)
+  const [ categories, setCategories ] = useState([]);
 
-  // Load data from api
+  // Load data from api on page load
+  // Listens to change in the ideaFilter state
   useEffect(() => {
     const apiFetchCall = async () => {
       await Axios
       .get(ideasURL)
-      .then((res) => setIdeaArray(res.data))
+      .then((res) => {
+        // Storing ideas into array based on filter
+        // Default - All ideas based on default filter state, i.e. "All"
+        setIdeaArray(res.data.filter((idea) => (ideaFilter === 'All')
+        ? idea
+        : idea.category === ideaFilter));
+        // Getting categories from the ideas for filter buttons
+        let categoriesFromResults = res.data.map(idea => idea.category);
+        // Filtering out duplicate categories, if any
+        setCategories([...new Set(categoriesFromResults)]);
+      })
       .catch((err) => console.log(err));
     };
     apiFetchCall();
-  }, []);
+  }, [ideaFilter]);
+
+  // Function to toggle classes on Category filter
+  // buttons depending on current filter set
+  const toggleCategoryButtonClass = (filterTerm) => {
+    if(ideaFilter === filterTerm) {
+      return ("ideas__block-categories-filter-button ideas__block-categories-filter-button--current")
+    } else {
+      return ("ideas__block-categories-filter-button")
+    }
+  }
+
+  // Function to toggle classes on idea status
+  // spans depending whether or not the idea is completed
+  const toggleIdeaStatusClass = (doneStatus) => {
+    if(doneStatus) {
+      return ("ideas__block-card-info-status ideas__block-card-info-status--complete")
+    } else {
+      return ("ideas__block-card-info-status")
+    }
+  }
 
   // Check if the array has been loaded into the state
   if (ideaArray.length !== 0) {
@@ -29,6 +63,24 @@ function Ideas() {
       <section className="ideas">
         <div className="ideas__block container">
           <h2 className="ideas__block-title">Saved ideas</h2>
+          <div className="ideas__block-categories">
+            <h3 className="ideas__block-categories-title">Categories</h3>
+            <div className="ideas__block-categories-filter">
+              <button
+                className={toggleCategoryButtonClass("All")}
+                onClick={() => setIdeaFilter("All")}>All
+              </button>
+              {categories.map((category, index) => {
+                return (
+                  <button
+                    className={toggleCategoryButtonClass(category)}
+                    key={index}
+                    onClick={() => setIdeaFilter(category)}>{category}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
           {/* Rendering card per idea from ideaArray */}
           {ideaArray.map((idea) => {
             return (
@@ -49,10 +101,8 @@ function Ideas() {
                     // Dynamic value for status based on idea status
                     // -- true => completed idea
                     // -- false => pending idea
-                    className={ idea.done
-                      ? "ideas__block-card-info-status ideas__block-card-info-status--complete"
-                      : "ideas__block-card-info-status" }
-                    >{(idea.done) ? "Completed" : "Pending" }
+                    className={toggleIdeaStatusClass(idea.done)}
+                    >{(idea.done) ? "Completed" : "Pending"}
                   </span>
                 </div>
                 <div className="ideas__block-card-links">
