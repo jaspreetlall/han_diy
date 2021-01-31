@@ -34,7 +34,7 @@
 			@include flex(row, space-between, center);
 			width: 100%;
 			&-cancel {
-				@include button-square;
+				@include button;
 				@include fs-button;
 				color: $color-light;
 				background-color: $fill-han-diy-secondary;

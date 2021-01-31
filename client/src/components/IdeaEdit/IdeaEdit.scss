@@ -42,7 +42,7 @@
 					}
 				}
 				&-button {
-					@include button-square;
+					@include button;
 					background-color: $fill-han-diy-secondary;
 					width: 48%;
 					&--save {

@@ -96,11 +96,10 @@
 
 // Button mixins
 
-@mixin button-square {
+@mixin button {
 	border-radius: $border-radius;
 	text-align: center;
 	height: 36px;
-	width: 36px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

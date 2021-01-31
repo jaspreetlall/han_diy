@@ -67,7 +67,8 @@
 		@include flex(row, flex-end, center);
 		padding-bottom: 20px;
 		&-button {
-			@include button-square;
+			@include button;
+			width: 36px;
 			background-color: $fill-han-diy-secondary;
 			&--delete {
 				margin-right: auto;
