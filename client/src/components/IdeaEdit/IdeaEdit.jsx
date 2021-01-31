@@ -7,9 +7,12 @@ import SaveIcon from '../../assets/icons/done-white-48dp.svg';
 const ideaUrl = "http://localhost:8080/idea/";
 
 // TODO - Redirect to idea after editing.
-// TODO - Disable add button until required fields have data
 
 function IdeaEdit(props) {
+
+  useEffect(() => {
+    document.title = "Han-DIY | Edit";
+  }, []);
 
   const requestedIdeaId = props.match.params.id;
 
@@ -25,14 +28,7 @@ function IdeaEdit(props) {
     notes: ''
   })
 
-  // Form submit handler
-  const submitHandler = (e) => {
-    e.preventDefault();
-    Axios
-    .put(`${ideaUrl}${requestedIdeaId}`, formData)
-    .then(props.history.push('/'))
-    .catch((err) => console.log(err));
-  }
+  const [ disableSaveButton, setDisableSaveButton ] = useState(true);
 
   // Initial load of data from api
   useEffect(() => {
@@ -59,13 +55,33 @@ function IdeaEdit(props) {
     apiFetchCall();
   }, [requestedIdeaId]);
 
+  // Form submit handler
+  const submitHandler = (e) => {
+    e.preventDefault();
+    Axios
+    .put(`${ideaUrl}${requestedIdeaId}`, formData)
+    .then(props.history.push('/'))
+    .catch((err) => console.log(err));
+  }
+
   // Function to handle form input changes
   // and set values in state
   const handleChange = (e) => {
     const {name, value} = e.target;
     setFormData(prev => ({...prev, [name]: value}))
+    buttonStatus();
   }
-  
+
+  // Enable / Disable save button depending 
+  // whether required fields have data
+  const buttonStatus = () => {
+    if (formData.title && formData.category && formData.description) {
+      setDisableSaveButton(false);
+    } else {
+      setDisableSaveButton(true);
+    }
+  }
+
   return (
     <section className="edit">
       <div className="edit__block container">
@@ -81,10 +97,10 @@ function IdeaEdit(props) {
               type="text"
               id="title"
               name="title"
-              required
               autoFocus
               value={formData.title}
               onChange={handleChange}
+              onBlur={handleChange}
               placeholder="Title for your idea"
             />
           </div>
@@ -94,8 +110,8 @@ function IdeaEdit(props) {
               className="create__block-form-input-field"
               name="category"
               value={formData.category}
-              required
               onChange={handleChange}
+              onBlur={handleChange}
               id="category">
               <option value="">Choose Category</option>
               <option value="Build">Build</option>
@@ -114,9 +130,9 @@ function IdeaEdit(props) {
               type="text"
               id="description"
               name="description"
-              required
               value={formData.description}
               onChange={handleChange}
+              onBlur={handleChange}
               placeholder="Description of your idea"
             />
           </div>
@@ -173,8 +189,11 @@ function IdeaEdit(props) {
               <img className="edit__block-form-input-button-icon" src={CancelIcon} alt="Cancel icon"/>
               <span className="edit__block-form-input-button-text">Cancel</span>
             </button>
-            <button type="submit" className="edit__block-form-input-button edit__block-form-input-button--save">
-              <img className="edit__block-form-input-button-icon" src={SaveIcon} alt="Add icon"/>
+            <button
+              type="submit"
+              disabled={disableSaveButton}
+              className="edit__block-form-input-button edit__block-form-input-button--save">
+              <img className="edit__block-form-input-button-icon" src={SaveIcon} alt="Save icon"/>
               <span className="edit__block-form-input-button-text">Save</span>
             </button>
           </div>
