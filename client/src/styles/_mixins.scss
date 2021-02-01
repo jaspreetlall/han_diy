@@ -106,6 +106,7 @@
 	outline: inherit;
 	cursor: pointer;
 	font: inherit;
+	transition: all linear 0.2s;
 }
 
 @mixin button-mini {
@@ -122,4 +123,9 @@
 	padding: 0 7px 0 7px;
 	height: 22px;
 	margin: 8px 9px 0 0;
+	transition: all linear 0.2s;
+	&:hover {
+		background-color: $fill-han-diy-primary;
+		color: $color-light;
+	}
 }

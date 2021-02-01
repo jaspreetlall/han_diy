@@ -40,10 +40,16 @@
 				background-color: $fill-han-diy-secondary;
 				width: 48%;
 				text-shadow: $shadow-text;
+				&:hover {
+					background-color: $fill-hover-secondary-dark;
+				}
 			}
 			&-delete {
 				@extend .modal__block-buttons-cancel;
 				background-color: $fill-warning;
+				&:hover {
+					background-color: $fill-warning-hover;
+				}
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 @import "../../styles/global";
 @import "../../styles/mixins";
 
-.footer {
+.nav {
 	background-color: $fill-han-diy-primary;
 	height: 70px;
 	position: fixed;
@@ -15,6 +15,11 @@
 			@include flex(column, flex-start, center);
 			padding: 0 8px 8px 8px;
 			width: 65px;
+			transition: all ease-in-out 0.2s;
+			&:hover {
+				border-radius: $border-radius;
+				background-color: $fill-hover-primary-dark;
+			}
 			&--active {
 				border-bottom: 2px solid $fill-han-diy-light;
 			}

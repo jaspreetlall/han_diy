@@ -4,8 +4,11 @@ $fill-han-diy-light: #f7f8f5;
 $fill-han-diy-primary: #dc9f65;
 $fill-han-diy-secondary: #9c9b93;
 $fill-warning: #ed5e68;
+$fill-warning-hover: #b44950;
 $fill-warning-background: rgba(156, 155, 147, 0.7);
-$fill-disabled-button: #88603b;
+$fill-disabled-button: rgba(156, 155, 147, 0.7);
+$fill-hover-primary-dark: #b98553;
+$fill-hover-secondary-dark: #807f78;
 
 // Text Colors
 $color-dark: #4e5653;
@@ -21,4 +24,6 @@ $border-radius: 4px;
 
 // Shadows
 $shadow-filter-drop: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+$shadow-filter-drop-dark: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
 $shadow-text: 0px 2px 4px rgba(0, 0, 0, 0.25);
+$shadow-text-dark: 0px 2px 4px rgba(0, 0, 0, 0.5);

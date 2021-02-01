@@ -45,8 +45,14 @@
 					@include button;
 					background-color: $fill-han-diy-secondary;
 					width: 48%;
+					&:hover {
+						background-color: $fill-hover-secondary-dark;
+					}
 					&--add {
 						background-color: $fill-han-diy-primary;
+						&:hover {
+							background-color: $fill-hover-primary-dark;
+						}
 						&:disabled {
 							background-color: $fill-disabled-button;
 						}

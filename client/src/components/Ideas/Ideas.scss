@@ -57,8 +57,14 @@
 					background-color: $fill-han-diy-secondary;
 					margin-left: 8px;
 					width: 36px;
+					&:hover {
+						background-color: $fill-hover-secondary-dark;
+					}
 					&--view {
 						background-color: $fill-han-diy-primary;
+						&:hover {
+							background-color: $fill-hover-primary-dark;
+						}
 					}
 					&-img {
 						filter: $shadow-filter-drop;

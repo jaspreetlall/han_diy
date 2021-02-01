@@ -8,7 +8,7 @@ import IdeaEdit from './components/IdeaEdit/IdeaEdit';
 import IdeaDetails from './components/IdeaDetails/IdeaDetails';
 import About from './components/About/About';
 import PageNotFound from './components/PageNotFound/PageNotFound';
-import Footer from './components/Footer/Footer';
+import Nav from './components/Nav/Nav';
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
             <Route path="/404" component={PageNotFound} />
             <Redirect to="/404" />
           </Switch>
-          <Footer />
+          <Nav />
         </>
       </Router>
     </div>

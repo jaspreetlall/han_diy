@@ -70,9 +70,15 @@
 			@include button;
 			width: 36px;
 			background-color: $fill-han-diy-secondary;
+			&:hover {
+				background-color: $fill-hover-secondary-dark;
+			}
 			&--delete {
 				margin-right: auto;
 				background-color: $fill-warning;
+				&:hover {
+					background-color: $fill-warning-hover;
+				}
 			}
 			&--status {
 				@include fs-button;
@@ -82,8 +88,14 @@
 				color: $color-light;
 				width: auto;
 				padding: 10px;
+				&:hover {
+					background-color: $fill-hover-secondary-dark;
+				}
 				&-pending {
 					background-color: $fill-han-diy-primary;
+					&:hover {
+						background-color: $fill-hover-primary-dark;
+					}
 				}
 			}
 			&-icon {
