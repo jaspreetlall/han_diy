@@ -22,10 +22,13 @@ router
       "imageUrl": idea.imageUrl,
       "category" : idea.category,
       "done": idea.done,
+      "timestamp": idea.timestamp
     }
     ideaList.push(ideaObject);
   })
-  return response.status(200).send(ideaList);
+  // Returning the idea array sorted by newest ideas at 1st
+  // based on the timestamp
+  return response.status(200).send(ideaList.sort((a,b) => b.timestamp - a.timestamp));
 })
 // Endpoint to post an idea
 .post('/', (request, response) => {
