@@ -1,0 +1,86 @@
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.img-search {
+	@include flex(row, center, center);
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 3;
+	background-color: $fill-warning-background;
+	&__block {
+		@include flex(column, space-between, center);
+		filter: $shadow-filter-drop;
+		border-radius: $border-radius;
+		background-color: $fill-han-diy-light;
+		padding: 8px 8px 16px 8px;
+		width: 100%;
+		height: 80vh;
+		overflow: scroll;
+		&-form {
+			&-input {
+				@include flex(column, flex-start, flex-start);
+				width: 100%;
+				&--buttons {
+					@include flex(row, space-between, center);
+					padding: 20px 0 20px 0;
+				}
+				&-label {
+					@include fs-input-title;
+					color: $color-dark;
+					width: 100%;
+					padding: 16px 0 6px 0;
+				}
+				&-field {
+					background-color: $fill-white;
+					border-radius: $border-radius;
+					border: $border-style;
+					color: $color-dark;
+					filter: $shadow-filter-drop;
+					height: 36px;
+					width: 100%;
+					padding: 0 0 0 8px;
+				}
+			}
+			&-button {
+				@include button;
+				@include fs-button;
+				color: $color-light;
+				background-color: $fill-han-diy-secondary;
+				width: 48%;
+				&:hover {
+					background-color: $fill-hover-secondary-dark;
+				}
+				&--search {
+					background-color: $fill-han-diy-primary;
+					&:hover {
+						background-color: $fill-hover-primary-dark;
+					}
+					&:disabled {
+						background-color: $fill-disabled-button;
+					}
+				}
+			}
+		}
+		&-images {
+			@include flex(row, center, flex-start);
+			flex-wrap: wrap;
+			&-wrapper {
+				border-radius: $border-radius;
+				overflow: hidden;
+				width: 48%;
+				height: 20vh;
+				margin-bottom: 8px;
+				&:nth-child(2n + 1) {
+					margin-right: 8px;
+				}
+				&-img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+		}
+	}
+}

@@ -3,6 +3,7 @@ import './IdeaCreate.scss';
 import CancelIcon from '../../assets/icons/cancel-white-48dp.svg';
 import AddIcon from '../../assets/icons/create-white-48dp.svg';
 import Axios from 'axios';
+import ImageSearchModal from '../ImageSearchModal/ImageSearchModal';
 
 const ideaUrl = "http://localhost:8080/idea/";
 
@@ -25,6 +26,9 @@ function IdeaCreate(props) {
   })
 
   const [ disableAddButton, setDisableAddButton ] = useState(true);
+  const [ imageUrl, setImageUrl ] = useState('');
+  const [ displaySearchModal, setDisplaySearchModal ] = useState(false);
+
 
   // Function to handle form input changes
   // and set values in state
@@ -60,6 +64,26 @@ function IdeaCreate(props) {
     }
   }
 
+  // Button handler to trigger image search modal
+  const searchModalButtonHandler = () => {
+    setDisplaySearchModal(true);
+  }
+
+  // Click handler to be used by search modal
+  // when image is clicked upon
+  const imageClickHandler = (imageId) => {
+    console.log(imageId);
+    let imageUrl = `https://unsplash.com/photos/${imageId}/download?force=true&w=1920`
+    setImageUrl(imageUrl);
+  }
+
+  // Button Handler for closing the search modal
+  const closeSearchHandler = () => {
+    setFormData(prev => ({...prev, imageUrl: imageUrl}))
+    setDisplaySearchModal(false);
+  }
+
+
   return (
     <section className="create">
       <div className="create__block container">
@@ -81,6 +105,13 @@ function IdeaCreate(props) {
               onChange={handleChange}
               onBlur={handleChange}
               placeholder="Title for your idea"/>
+          </div>
+          <div className="create__block-form-input create__block-form-input--search">
+          <label className="create__block-form-input-label" htmlFor="title">Cover image</label>
+            <button
+              className="create__block-form-input-button create__block-form-input-button--search"
+              onClick={searchModalButtonHandler}
+              type="button">Search cover image</button>
           </div>
           <div className="create__block-form-input">
             <label className="create__block-form-input-label" htmlFor="category">Category</label>
@@ -179,6 +210,11 @@ function IdeaCreate(props) {
             </button>
           </div>
         </form>
+      </div>
+      <div className={displaySearchModal ? "search-modal--show" : "search-modal--hidden"}>
+        <ImageSearchModal
+          imageClickHandler={imageClickHandler}
+          closeSearchHandler={closeSearchHandler}/>
       </div>
     </section>
   )
