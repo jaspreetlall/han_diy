@@ -105,3 +105,13 @@
 		}
 	}
 }
+
+// Delete modal
+.delete-modal {
+	&--hidden {
+		display: none;
+	}
+	&--show {
+		display: block;
+	}
+}
