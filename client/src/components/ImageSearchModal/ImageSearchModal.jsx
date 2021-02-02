@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './ImageSearchModal.scss';
 import Axios from 'axios';
+
 const unsplashApiKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const apiUrl = "https://api.unsplash.com/search/photos";
-
-// ?page=1&query=${searchTerm}&client_id=${unsplashApiKey}
 
 function ImageSearchModal({ imageClickHandler, closeSearchHandler }) {
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ imageArray, setImageArray ] = useState([])
 
+  // Image search API call to Unsplash
   useEffect(() => {
     const apiFetchCall = async () => {
       await Axios
