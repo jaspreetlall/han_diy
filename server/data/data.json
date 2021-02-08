@@ -1,28 +1,5 @@
 [
   {
-    "id": "a026dd90-1818-4803-9cef-257f9c15eacf",
-    "userId": "2fc8e7ee-ee37-483f-93dc-116389646d4f",
-    "title": "Facelift book shelf speakers",
-    "imageUrl": "https://unsplash.com/photos/EKfkHf2ftkw/download?force=true&w=1920",
-    "description": "Re-paint the front of speaker boxes. Wrap the sides with a vinyl wrap.",
-    "category": "Repair",
-    "tools": [
-      "Paint brush",
-      "Scrapper",
-      "Paint tray"
-    ],
-    "parts": [
-      "Paint",
-      "Vinyl warp",
-      "Masking tape",
-      "Heat gun"
-    ],
-    "done": false,
-    "link": "https://www.youtube.com/watch?v=oA7jafMrqdk",
-    "notes": "Place orders in advance to avoid delays.",
-    "timestamp": 1568658780000
-  },
-  {
     "id": "85a6930d-68e8-47be-ac74-abb3836cec4a",
     "userId": "2fc8e7ee-ee37-483f-93dc-116389646d4f",
     "title": "Network-wide ad-blocker",
@@ -87,15 +64,38 @@
     ],
     "done": true,
     "link": "https://buildmypc.net/",
-    "notes": "Minimum requirements include a 4-core CPU and 8GB memory. Dual monitors highly recomended.",
+    "notes": "Minimum requirements include a 4-core CPU and 8GB memory. Dual monitors highly recommended.",
     "timestamp": 1584272220000
+  },
+  {
+    "id": "a026dd90-1818-4803-9cef-257f9c15eacf",
+    "userId": "2fc8e7ee-ee37-483f-93dc-116389646d4f",
+    "title": "Facelift book shelf speakers",
+    "imageUrl": "https://unsplash.com/photos/EKfkHf2ftkw/download?force=true&w=1920",
+    "description": "Re-paint the front of speaker boxes. Wrap the sides with a vinyl wrap.",
+    "category": "Repair",
+    "tools": [
+      "Paint brush",
+      "Scrapper",
+      "Paint tray"
+    ],
+    "parts": [
+      "Paint",
+      "Vinyl warp",
+      "Masking tape",
+      "Heat gun"
+    ],
+    "done": false,
+    "link": "https://www.youtube.com/watch?v=oA7jafMrqdk",
+    "notes": "Place orders in advance to avoid delays.",
+    "timestamp": 1568658780000
   },
   {
     "id": "312cf99c-3f34-4e0c-96a0-a11c8bb3dea5",
     "userId": "2fc8e7ee-ee37-483f-93dc-116389646d4f",
     "title": "Coffee table",
     "imageUrl": "https://unsplash.com/photos/KJFKCed0YKo/download?force=true&w=1920",
-    "description": "Make a coffee table with live-edge wood top and metal u-frame legs. Minimum size 1m X 1m x 0.5m",
+    "description": "Make a coffee table with live-edge wood top and metal u-frame legs. Minimum size 1m X 1m x 0.5m.",
     "category": "Build",
     "tools": [
       "Saw",
