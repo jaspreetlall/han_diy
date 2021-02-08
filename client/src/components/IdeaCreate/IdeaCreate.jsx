@@ -43,9 +43,10 @@ function IdeaCreate(props) {
     e.preventDefault();
     Axios
     .post(ideaUrl, formData)
-    .then(res => setTimeout(() => {
-      props.history.push(`/idea/${res.data.id}/details`)
-    }, 500))
+    .then(res =>
+      setTimeout(() => {
+      props.history.push(`/ideas`)
+    }, 600))
     .catch(err => console.log(err))
   }
 
@@ -72,17 +73,11 @@ function IdeaCreate(props) {
   // Click handler to be used by search modal
   // when image is clicked upon
   const imageClickHandler = (imageId) => {
-    console.log(imageId);
-    let imageUrl = `https://unsplash.com/photos/${imageId}/download?force=true&w=1920`
-    setImageUrl(imageUrl);
-  }
-
-  // Button Handler for closing the search modal
-  const closeSearchHandler = () => {
-    setFormData(prev => ({...prev, imageUrl: imageUrl}))
+    let imageUrlFromModal = `https://unsplash.com/photos/${imageId}/download?force=true&w=1920`
+    setFormData(prev => ({...prev, imageUrl: imageUrlFromModal}))
+    setImageUrl(imageUrlFromModal);
     setDisplaySearchModal(false);
   }
-
 
   return (
     <section className="create">
@@ -107,11 +102,21 @@ function IdeaCreate(props) {
               placeholder="Title for your idea"/>
           </div>
           <div className="create__block-form-input create__block-form-input--search">
-          <label className="create__block-form-input-label" htmlFor="title">Cover image</label>
+            <label className="create__block-form-input-label" htmlFor="title">Cover image</label>
             <button
               className="create__block-form-input-button create__block-form-input-button--search"
               onClick={searchModalButtonHandler}
               type="button">Search cover image</button>
+            {/* Displaying thumbnail only if image is choosen by the user
+                and the url is set in the state
+            */}
+            {
+              imageUrl
+              ? <div className="create__block-form-input-thumbnail">
+                  <img className="create__block-form-input-thumbnail-img" src={imageUrl} alt="Cover thumbnail"/>
+                </div>
+              : <div></div>
+            }
           </div>
           <div className="create__block-form-input">
             <label className="create__block-form-input-label" htmlFor="category">Category</label>
@@ -214,7 +219,8 @@ function IdeaCreate(props) {
       <div className={displaySearchModal ? "search-modal--show" : "search-modal--hidden"}>
         <ImageSearchModal
           imageClickHandler={imageClickHandler}
-          closeSearchHandler={closeSearchHandler}/>
+          // closeSearchHandler={closeSearchHandler}
+        />
       </div>
     </section>
   )

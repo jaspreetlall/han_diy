@@ -12,6 +12,7 @@
 			&-input {
 				@include flex(column, flex-start, flex-start);
 				width: 100%;
+				position: relative;
 				&--buttons {
 					@include flex(row, space-between, center);
 					padding: 20px 0 20px 0;
@@ -62,6 +63,7 @@
 						color: $color-light;
 						background-color: $fill-han-diy-primary;
 						margin-top: 8px;
+						text-shadow: $shadow-text;
 						&:hover {
 							background-color: $fill-hover-primary-dark;
 						}
@@ -75,6 +77,22 @@
 						color: $color-light;
 						text-shadow: $shadow-text;
 						padding-left: 8px;
+					}
+				}
+				&-thumbnail {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					height: 68px;
+					width: 120px;
+					border-radius: $border-radius;
+					border: $border-style;
+					overflow: hidden;
+					filter: $shadow-filter-drop;
+					&-img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
 					}
 				}
 			}

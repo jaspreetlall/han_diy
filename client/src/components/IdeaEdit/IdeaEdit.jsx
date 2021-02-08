@@ -59,8 +59,8 @@ function IdeaEdit(props) {
     Axios
     .put(`${ideaUrl}${requestedIdeaId}`, formData)
     .then(res => setTimeout(() => {
-      props.history.push(`/idea/${res.data.id}/details`)
-    }, 500))
+      props.history.push(`/ideas`)
+    }, 600))
     .catch((err) => console.log(err));
   }
 
