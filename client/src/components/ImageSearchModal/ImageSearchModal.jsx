@@ -5,7 +5,7 @@ import Axios from 'axios';
 const unsplashApiKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const apiUrl = "https://api.unsplash.com/search/photos";
 
-function ImageSearchModal({ imageClickHandler, closeSearchHandler }) {
+function ImageSearchModal({ imageClickHandler }) {
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ imageArray, setImageArray ] = useState([])
@@ -27,33 +27,12 @@ function ImageSearchModal({ imageClickHandler, closeSearchHandler }) {
   const submitHandler = (e) => {
     e.preventDefault();
     setSearchTerm(e.target.search.value);
+    window.scrollTo(0,0);
   }
 
   return (
     <div className="img-search">
       <div className="img-search__block container">
-        <form
-          className="img-search__block-form"
-          onSubmit={submitHandler}>
-          <div className="img-search__block-form-input">
-            <label className="img-search__block-form-input-label" htmlFor="title">Tap on image, then hit close to save</label>
-            <input
-              className="img-search__block-form-input-field"
-              type="text"
-              id="search"
-              name="search"
-              autoFocus
-              placeholder="Search for image"/>
-          </div>
-          <div className="img-search__block-form-input--buttons">
-            <button
-              className="img-search__block-form-button img-search__block-form-button--close"
-              onClick={closeSearchHandler} type="button">Close</button>
-            <button
-              className="img-search__block-form-button img-search__block-form-button--search"
-              type="submit">Search</button>
-          </div>
-        </form>
         <div className="img-search__block-images">
           {
             imageArray.map((image) => {
@@ -71,6 +50,25 @@ function ImageSearchModal({ imageClickHandler, closeSearchHandler }) {
             })
           }
         </div>
+        <form
+          className="img-search__block-form"
+          onSubmit={submitHandler}>
+          <div className="img-search__block-form-input">
+            <label className="img-search__block-form-input-label" htmlFor="title">Tap on image to set cover photo</label>
+            <input
+              className="img-search__block-form-input-field"
+              type="text"
+              id="search"
+              name="search"
+              autoFocus
+              placeholder="Search for image"/>
+          </div>
+          <div className="img-search__block-form-input--buttons">
+            <button
+              className="img-search__block-form-button img-search__block-form-button--search"
+              type="submit">Search</button>
+          </div>
+        </form>
       </div>
     </div>
   )

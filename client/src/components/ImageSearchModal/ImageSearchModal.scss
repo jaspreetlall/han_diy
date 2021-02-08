@@ -19,6 +19,7 @@
 		height: 80vh;
 		overflow: scroll;
 		&-form {
+			width: 80%;
 			&-input {
 				@include flex(column, flex-start, flex-start);
 				width: 100%;
@@ -28,6 +29,7 @@
 				}
 				&-label {
 					@include fs-input-title;
+					text-align: center;
 					color: $color-dark;
 					width: 100%;
 					padding: 16px 0 6px 0;
@@ -49,6 +51,8 @@
 				color: $color-light;
 				background-color: $fill-han-diy-secondary;
 				width: 48%;
+				margin-left: auto;
+				margin-right: auto;
 				&:hover {
 					background-color: $fill-hover-secondary-dark;
 				}
