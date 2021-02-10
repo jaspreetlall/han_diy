@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AppLogo from '../../assets/logos/logo-light.svg';
 import UserIcon from '../../assets/icons/user-white-48dp.svg';
 import './Header.scss';
+import fire from '../../Firebase/Fire';
 
 export default function Header() {
   return (
@@ -15,6 +16,7 @@ export default function Header() {
         <div className="header__block-user">
           <img className="header__block-user-img" src={UserIcon} alt="User icon"/>
         </div>
+        <button onClick={() => fire.auth().signOut()}>SignOut</button>
       </div>
     </header>
   )
