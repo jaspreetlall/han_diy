@@ -51,7 +51,7 @@ function IdeaDetails(props) {
           // after converting into milliseconds
           timestamp: querySnapshot.data().timestamp.toMillis()
         });
-      })
+      }, (err) => console.log(err))
     }
     fetchData();
   }, [requestedIdeaId])
@@ -60,7 +60,6 @@ function IdeaDetails(props) {
   // Function used by confirmation modal component
   // to make firestore delete call.
   const deleteConfirmationHandler = () => {
-    console.log("delete request")
     const db = fire.firestore();
     db
     .collection("ideas")

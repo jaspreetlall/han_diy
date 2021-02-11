@@ -52,7 +52,7 @@ function Ideas() {
             .filter(idea => idea.category === ideaFilter)
             .sort((a,b) => b.timestamp - a.timestamp)
           )
-      })
+      }, (err) => console.log(err))
     }
     fetchData();
   }, [ideaFilter])
