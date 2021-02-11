@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
 import './IdeaEdit.scss';
 import CancelIcon from '../../assets/icons/cancel-white-48dp.svg';
 import SaveIcon from '../../assets/icons/done-white-48dp.svg';
-
-const ideaUrl = "http://localhost:8080/idea/";
+import fire from '../../Firebase/Fire';
 
 function IdeaEdit(props) {
 
@@ -15,7 +13,6 @@ function IdeaEdit(props) {
   const requestedIdeaId = props.match.params.id;
 
   const [formData, setFormData] = useState({
-    userId: "2fc8e7ee-ee37-483f-93dc-116389646d4f",
     title: '',
     imageUrl: '',
     description: '',
@@ -28,39 +25,53 @@ function IdeaEdit(props) {
 
   const [ disableSaveButton, setDisableSaveButton ] = useState(true);
 
-  // Initial load of data from api
+  // Initial load of data from firestore
   useEffect(() => {
-    // Function to get data from api
-    const apiFetchCall = async () => {
-      await Axios
-      .get(`${ideaUrl}${requestedIdeaId}`)
-      .then((res) => {
-        setFormData({  
-          title: res.data.title,
-          imageUrl: res.data.imageUrl,
-          description: res.data.description,
-          category: res.data.category,
-          tools: res.data.tools.join(', '),
-          parts: res.data.parts.join(', '),
-          done: res.data.done,
-          link: res.data.link,
-          notes: res.data.notes,
-          timestamp: res.data.timestamp,
-        })
-      })
-      .catch((err) => console.log(err));
-    };
-    apiFetchCall();
+    const fetchData = async () => {
+      const db = fire.firestore();
+      db
+      .collection("ideas")
+      // Matching firestore document id
+      // with requestedIdeaId
+      .doc(requestedIdeaId)
+      .onSnapshot((querySnapshot) => {
+        // Setting idea state with received data
+        setFormData({
+          ...querySnapshot.data(),
+          // Adding document id as the idea id
+          // into idea object in the state
+          id: querySnapshot.id,
+          // Converting parts and tools array
+          //  items into comma separated strings
+          tools: querySnapshot.data().tools.join(', '),
+          parts: querySnapshot.data().parts.join(', '),
+        });
+      }, (err) => console.log(err))
+    }
+    fetchData();
   }, [requestedIdeaId]);
 
   // Form submit handler
   const submitHandler = (e) => {
     e.preventDefault();
-    Axios
-    .put(`${ideaUrl}${requestedIdeaId}`, formData)
-    .then(res => setTimeout(() => {
-      props.history.push(`/ideas`)
-    }, 600))
+    const db = fire.firestore();
+    db
+    .collection("ideas")
+    // Matching firestore document/idea
+    // id with requestedIdeaId
+    .doc(requestedIdeaId)
+    // Updating the idea key value pairs
+    .update({
+      title: formData.title,
+      imageUrl: formData.imageUrl,
+      description: formData.description,
+      category: formData.category,
+      tools: (formData.tools).split(', '),
+      parts: (formData.parts).split(', '),
+      link: formData.link,
+      notes: formData.notes
+    })
+    .then(() => props.history.push(`/ideas`))
     .catch((err) => console.log(err));
   }
 
