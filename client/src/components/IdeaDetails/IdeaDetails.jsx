@@ -6,6 +6,7 @@ import DeleteConfirmation from '../DeleteConfirmation/DeleteConfirmation';
 import EditIcon from '../../assets/icons/edit-white-48dp.svg';
 import DeleteIcon from '../../assets/icons/delete-white-48dp.svg';
 import './IdeaDetails.scss';
+import fire from '../../Firebase/Fire';
 
 const ideaUrl = "http://localhost:8080/idea/";
 
@@ -14,8 +15,9 @@ function IdeaDetails(props) {
   const [ idea, setIdea ] = useState({});
   const [ displayModal, setDisplayModal ] = useState(false);
 
+  // Setting page title
   useEffect(() => {
-    document.title = `Han-DIY | ${idea.title}`;
+    document.title = (idea.title) ? `Han-DIY | ${idea.title}` : `Han-DIY | Please Wait...`;
   }, [idea.title]);
   
   const requestedIdeaId = props.match.params.id;
@@ -32,16 +34,31 @@ function IdeaDetails(props) {
     setDisplayModal(false);
   }
 
-  // Initial load of data from api
+  // Getting idea details from firestore
   useEffect(() => {
-    const apiFetchCall = async () => {
-      await Axios
-      .get(`${ideaUrl}${requestedIdeaId}`)
-      .then((res) => setIdea(res.data))
-      .catch((err) => console.log(err));
-    };
-    apiFetchCall();
-  }, [requestedIdeaId]);
+    const fetchData = async () => {
+      const db = fire.firestore();
+      db
+      .collection("ideas")
+      // Matching firestore document id
+      // with requestedIdeaId
+      .doc(requestedIdeaId)
+      .onSnapshot((querySnapshot) => {
+        // Setting idea state with received data
+        setIdea({
+          ...querySnapshot.data(),
+          // Adding document id as the idea id
+          // into idea object in the state
+          id: querySnapshot.id,
+          // Overwriting the timestamp in idea object
+          // after converting into milliseconds
+          timestamp: querySnapshot.data().timestamp.toMillis()
+        });
+      })
+    }
+    fetchData();
+  }, [requestedIdeaId])
+
 
   // Function used by confirmation modal component
   // to make api delete call.
