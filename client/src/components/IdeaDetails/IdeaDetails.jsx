@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
 import TextClamp from 'react-string-clamp';
 import DeleteConfirmation from '../DeleteConfirmation/DeleteConfirmation';
 import EditIcon from '../../assets/icons/edit-white-48dp.svg';
 import DeleteIcon from '../../assets/icons/delete-white-48dp.svg';
 import './IdeaDetails.scss';
 import fire from '../../Firebase/Fire';
-
-const ideaUrl = "http://localhost:8080/idea/";
 
 function IdeaDetails(props) {
   
@@ -61,37 +58,33 @@ function IdeaDetails(props) {
 
 
   // Function used by confirmation modal component
-  // to make api delete call.
+  // to make firestore delete call.
   const deleteConfirmationHandler = () => {
-    Axios
-    .delete(`${ideaUrl}${idea.id}`)
-    .then(setTimeout(() => {
-      props.history.push(`/ideas`)
-    }, 500))
-    .catch(err => console.log(err))
+    console.log("delete request")
+    const db = fire.firestore();
+    db
+    .collection("ideas")
+    // Matching firestore document/idea
+    // id with requestedIdeaId
+    .doc(requestedIdeaId)
+    // Deleting the requested document/idea
+    // from firestore
+    .delete()
+    .then(() => props.history.push(`/ideas`))
+    .catch((err) => console.log(err));
   }
 
   // Function to update the "Done" status
   // when change status button is clicked
   const changeStatusHandler = () => {
-    let updatedIdea =
-    {
-      title: idea.title,
-      imageUrl: idea.imageUrl,
-      description: idea.description,
-      category: idea.category,
-      tools: idea.tools.join(', '),
-      parts: idea.parts.join(', '),
-      done: !idea.done,
-      link: idea.link,
-      notes: idea.notes,
-      timestamp: idea.timestamp,
-    }
-    Axios
-    .put(`${ideaUrl}${idea.id}`, updatedIdea)
-    .then((res) => {
-      setIdea(res.data);
-    })
+    const db = fire.firestore();
+    db
+    .collection("ideas")
+    // Matching firestore document id
+    // with requestedIdeaId
+    .doc(requestedIdeaId)
+    // Updating the done status
+    .update({ done: !idea.done})
     .catch((err) => console.log(err));
   }
 
