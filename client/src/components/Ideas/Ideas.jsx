@@ -1,46 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios';
+// import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Ideas.scss';
 import EditIcon from '../../assets/icons/edit-white-48dp.svg';
 import ViewIcon from '../../assets/icons/view-white-48dp.svg';
-
-const ideasURL = "http://localhost:8080/idea/"
+import fire from '../../Firebase/Fire';
 
 function Ideas() {
-  
+  // Setting page title
   useEffect(() => {
     document.title = `Han-DIY | Saved ideas`;
   }, []);
 
-  // Storing all ideas from api
+  // Storing all ideas from firestore
   const [ ideaArray, setIdeaArray ] = useState([]);
   // Filter string to filter ideas by category
   const [ ideaFilter, setIdeaFilter ] = useState('All');
   // Array of categories(from ideas received from api)
   const [ categories, setCategories ] = useState([]);
 
-  // Load data from api on page load
-  // Listens to change in the ideaFilter state
   useEffect(() => {
-    const apiFetchCall = async () => {
-      await Axios
-      .get(ideasURL)
-      .then((res) => {
-        // Storing ideas into array based on filter
-        // Default - All ideas based on default filter state, i.e. "All"
-        setIdeaArray(res.data.filter((idea) => (ideaFilter === 'All')
-        ? idea
-        : idea.category === ideaFilter));
-        // Getting categories from the ideas for filter buttons
-        let categoriesFromResults = res.data.map(idea => idea.category);
-        // Filtering out duplicate categories, if any
+    const fetchData = async () => {
+      const db = fire.firestore();
+      db
+      .collection("ideas")
+      .onSnapshot((querySnapshot) => {
+        let ideaArrayFromResults = [];
+        let categoriesFromResults = [];
+        // For each document (idea) received,
+        // pushing the idea into ideaArrayFromResults,
+        // pushing category into categoriesFromResults
+        querySnapshot.forEach((idea) => {
+          ideaArrayFromResults.push({id: idea.id, ...idea.data()});
+          categoriesFromResults.push(idea.data().category);
+        })
+        // Setting state for available categories in
+        // while removing duplicates using [...new Set()]
         setCategories([...new Set(categoriesFromResults)]);
+        // Depending on the ideaFilter, setting the state
+        // of ideaArray, which is mapped over to display cards
+        (ideaFilter === "All")
+          // Setting all ideaArray
+          ? setIdeaArray(
+            ideaArrayFromResults
+            .slice()
+            .sort((a,b) => b.timestamp - a.timestamp)
+          )
+          // Setting ideaArray with filtered ideas
+          : setIdeaArray(
+            ideaArrayFromResults
+            .filter(idea => idea.category === ideaFilter)
+            .sort((a,b) => b.timestamp - a.timestamp)
+          )
       })
-      .catch((err) => console.log(err));
-    };
-    apiFetchCall();
-  }, [ideaFilter]);
+    }
+    fetchData();
+  }, [ideaFilter])
 
   // Function to toggle classes on Category filter
   // buttons depending on current filter set
@@ -75,6 +90,7 @@ function Ideas() {
                 className={toggleCategoryButtonClass("All")}
                 onClick={() => setIdeaFilter("All")}>All
               </button>
+              {/* // Creating filter buttons from available categories */}
               {categories.map((category, index) => {
                 return (
                   <button
