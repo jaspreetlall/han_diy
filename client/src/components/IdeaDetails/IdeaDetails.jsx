@@ -9,7 +9,17 @@ import fire from '../../Firebase/Fire';
 
 function IdeaDetails(props) {
   
-  const [ idea, setIdea ] = useState({});
+  const [ idea, setIdea ] = useState({
+    title: '',
+    imageUrl: '',
+    description: '',
+    category: '',
+    tools: [],
+    parts: [],
+    link: '',
+    done: false,
+    notes: ''
+  });
   const [ displayModal, setDisplayModal ] = useState(false);
 
   // Setting page title
@@ -33,9 +43,8 @@ function IdeaDetails(props) {
 
   // Getting idea details from firestore
   useEffect(() => {
-    const fetchData = async () => {
-      const db = fire.firestore();
-      db
+    const fetchData = fire
+      .firestore()
       .collection("ideas")
       // Matching firestore document id
       // with requestedIdeaId
@@ -49,11 +58,10 @@ function IdeaDetails(props) {
           id: querySnapshot.id,
           // Overwriting the timestamp in idea object
           // after converting into milliseconds
-          timestamp: querySnapshot.data().timestamp.toMillis()
+          // timestamp: querySnapshot.data().timestamp.toMillis()
         });
       }, (err) => console.log(err))
-    }
-    fetchData();
+    return () => fetchData();
   }, [requestedIdeaId])
 
 
@@ -83,14 +91,15 @@ function IdeaDetails(props) {
     // with requestedIdeaId
     .doc(requestedIdeaId)
     // Updating the done status
-    .update({ done: !idea.done})
+    .update({done: !idea.done})
     .catch((err) => console.log(err));
   }
 
   // Converting timestamp to a human readable date
-  let utcDate = (new Date(idea.timestamp)).toLocaleDateString('en-US');
+  let dateOptions = {day: 'numeric', month: 'short', year: 'numeric'};
+  let utcDate = (new Date(idea.timestamp)).toLocaleDateString('en-GB', dateOptions);
 
-  if(idea.id) {
+  if(idea.title) {
     return (
       <>
         <article className="idea">
@@ -114,12 +123,12 @@ function IdeaDetails(props) {
               <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Tools:</h3>
                 {/* Displaying array as a comma separated string */}
-                <p className="idea__card-body-detail-para">{(idea.tools).join(", ")}</p>
+                <p className="idea__card-body-detail-para">{idea.tools.join(", ")}</p>
               </div>
               <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Parts:</h3>
                 {/* Displaying array as a comma separated string */}
-                <p className="idea__card-body-detail-para">{(idea.parts).join(", ")}</p>
+                <p className="idea__card-body-detail-para">{idea.parts.join(", ")}</p>
               </div>
               <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Notes:</h3>
