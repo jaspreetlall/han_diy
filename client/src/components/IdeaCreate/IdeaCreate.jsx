@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './IdeaCreate.scss';
 import CancelIcon from '../../assets/icons/cancel-white-48dp.svg';
 import AddIcon from '../../assets/icons/create-white-48dp.svg';
-import Axios from 'axios';
 import ImageSearchModal from '../ImageSearchModal/ImageSearchModal';
-
-const ideaUrl = "http://localhost:8080/idea/";
+import fire from '../../Firebase/Fire';
 
 function IdeaCreate(props) {
 
+  // Setting page title
   useEffect(() => {
     document.title = "Han-DIY | Create";
   }, []);
 
   const [ formData, setFormData ] = useState({
-    userId: "2fc8e7ee-ee37-483f-93dc-116389646d4f",
+    userId: props.userId,
     title: '',
     imageUrl: '',
     description: '',
@@ -27,6 +26,7 @@ function IdeaCreate(props) {
 
   const [ disableAddButton, setDisableAddButton ] = useState(true);
   const [ imageUrl, setImageUrl ] = useState('');
+  const [ previewImageUrl, setPreviewImageUrl ] = useState('');
   const [ displaySearchModal, setDisplaySearchModal ] = useState(false);
 
 
@@ -41,20 +41,31 @@ function IdeaCreate(props) {
   // Form submit handler
   const submitHandler = (e) => {
     e.preventDefault();
-    Axios
-    .post(ideaUrl, formData)
-    .then(res =>
-      setTimeout(() => {
-      props.history.push(`/ideas`)
-    }, 600))
-    .catch(err => console.log(err))
+    const db = fire.firestore();
+    db
+    .collection("ideas")
+    // Adding the idea key value pairs
+    .add({
+      userId: formData.userId,
+      title: formData.title,
+      imageUrl: formData.imageUrl || 'https://unsplash.com/photos/82TpEld0_e4/download?force=true&w=640',
+      description: formData.description,
+      category: formData.category,
+      tools: (formData.tools).split(', '),
+      parts: (formData.parts).split(', '),
+      link: formData.link,
+      notes: formData.notes,
+      timestamp: Date.now()
+    })
+    .then(() => props.history.push(`/ideas`))
+    .catch((err) => console.log(err));
   }
 
   // Cancel handler
   const cancelButtonHandler = () => {
     props.history.goBack();
   }
-
+  
   // Enable / Disable add button depending 
   // whether required fields have data
   const buttonStatus = () => {
@@ -64,18 +75,26 @@ function IdeaCreate(props) {
       setDisableAddButton(true);
     }
   }
-
+  
   // Button handler to trigger image search modal
   const searchModalButtonHandler = () => {
     setDisplaySearchModal(true);
   }
-
+  
+  // Cancel button handler
+  // to hide search image modal
+  const cancelImageSearchButtonHandler = () => {
+    setDisplaySearchModal(false);
+  }
+  
   // Click handler to be used by search modal
   // when image is clicked upon
   const imageClickHandler = (imageId) => {
     let imageUrlFromModal = `https://unsplash.com/photos/${imageId}/download?force=true&w=1920`
     setFormData(prev => ({...prev, imageUrl: imageUrlFromModal}))
     setImageUrl(imageUrlFromModal);
+    // Setting lower resolution image for thumbnail
+    setPreviewImageUrl(`https://unsplash.com/photos/${imageId}/download?force=true&w=640`)
     setDisplaySearchModal(false);
   }
 
@@ -113,7 +132,7 @@ function IdeaCreate(props) {
             {
               imageUrl
               ? <div className="create__block-form-input-thumbnail">
-                  <img className="create__block-form-input-thumbnail-img" src={imageUrl} alt="Cover thumbnail"/>
+                  <img className="create__block-form-input-thumbnail-img" src={previewImageUrl} alt="Cover thumbnail"/>
                 </div>
               : <div></div>
             }
@@ -127,7 +146,7 @@ function IdeaCreate(props) {
               onChange={handleChange}
               onBlur={handleChange}
               id="category">
-              <option value="">Choose Category</option>
+              <option value="">Choose category</option>
               <option value="Build">Build</option>
               <option value="Craft">Craft</option>
               <option value="Decorate">Decorate</option>
@@ -219,7 +238,7 @@ function IdeaCreate(props) {
       <div className={displaySearchModal ? "search-modal--show" : "search-modal--hidden"}>
         <ImageSearchModal
           imageClickHandler={imageClickHandler}
-          // closeSearchHandler={closeSearchHandler}
+          cancelImageSearchButtonHandler={cancelImageSearchButtonHandler}
         />
       </div>
     </section>
