@@ -20,41 +20,39 @@ function Ideas() {
   const [ categories, setCategories ] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const db = fire.firestore();
-      db
-      .collection("ideas")
-      .onSnapshot((querySnapshot) => {
-        let ideaArrayFromResults = [];
-        let categoriesFromResults = [];
-        // For each document (idea) received,
-        // pushing the idea into ideaArrayFromResults,
-        // pushing category into categoriesFromResults
-        querySnapshot.forEach((idea) => {
-          ideaArrayFromResults.push({id: idea.id, ...idea.data()});
-          categoriesFromResults.push(idea.data().category);
-        })
-        // Setting state for available categories in
-        // while removing duplicates using [...new Set()]
-        setCategories([...new Set(categoriesFromResults)]);
-        // Depending on the ideaFilter, setting the state
-        // of ideaArray, which is mapped over to display cards
-        (ideaFilter === "All")
-          // Setting all ideaArray
-          ? setIdeaArray(
-            ideaArrayFromResults
-            .slice()
-            .sort((a,b) => b.timestamp - a.timestamp)
-          )
-          // Setting ideaArray with filtered ideas
-          : setIdeaArray(
-            ideaArrayFromResults
-            .filter(idea => idea.category === ideaFilter)
-            .sort((a,b) => b.timestamp - a.timestamp)
-          )
-      }, (err) => console.log(err))
-    }
-    fetchData();
+    const fetchData = fire
+    .firestore()
+    .collection("ideas")
+    .onSnapshot((querySnapshot) => {
+      let ideaArrayFromResults = [];
+      let categoriesFromResults = [];
+      // For each document (idea) received,
+      // pushing the idea into ideaArrayFromResults,
+      // pushing category into categoriesFromResults
+      querySnapshot.forEach((idea) => {
+        ideaArrayFromResults.push({id: idea.id, ...idea.data()});
+        categoriesFromResults.push(idea.data().category);
+      })
+      // Setting state for available categories in
+      // while removing duplicates using [...new Set()]
+      setCategories([...new Set(categoriesFromResults)]);
+      // Depending on the ideaFilter, setting the state
+      // of ideaArray, which is mapped over to display cards
+      (ideaFilter === "All")
+        // Setting all ideaArray
+        ? setIdeaArray(
+          ideaArrayFromResults
+          .slice()
+          .sort((a,b) => b.timestamp - a.timestamp)
+        )
+        // Setting ideaArray with filtered ideas
+        : setIdeaArray(
+          ideaArrayFromResults
+          .filter(idea => idea.category === ideaFilter)
+          .sort((a,b) => b.timestamp - a.timestamp)
+        )
+    }, (err) => console.log(err))
+    return () => fetchData();
   }, [ideaFilter])
 
   // Function to toggle classes on Category filter
