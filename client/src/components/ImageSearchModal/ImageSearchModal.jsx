@@ -5,15 +5,15 @@ import Axios from 'axios';
 const unsplashApiKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const apiUrl = "https://api.unsplash.com/search/photos";
 
-function ImageSearchModal({ imageClickHandler }) {
+function ImageSearchModal({cancelImageSearchButtonHandler, imageClickHandler}) {
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ imageArray, setImageArray ] = useState([])
 
   // Image search API call to Unsplash
   useEffect(() => {
-    const apiFetchCall = async () => {
-      await Axios
+    const apiFetchCall = () => {
+      Axios
       .get(`${apiUrl}?page=1&query=${searchTerm}&client_id=${unsplashApiKey}`)
       .then((res) => {
         setImageArray(res.data.results);
@@ -65,8 +65,14 @@ function ImageSearchModal({ imageClickHandler }) {
           </div>
           <div className="img-search__block-form-input--buttons">
             <button
+              className="img-search__block-form-button"
+              type="button"
+              onClick={cancelImageSearchButtonHandler}>Cancel
+            </button>
+            <button
               className="img-search__block-form-button img-search__block-form-button--search"
-              type="submit">Search</button>
+              type="submit">Search
+            </button>
           </div>
         </form>
       </div>
