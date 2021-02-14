@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './IdeaEdit.scss';
 import CancelIcon from '../../assets/icons/cancel-white-48dp.svg';
 import SaveIcon from '../../assets/icons/done-white-48dp.svg';
+import ImageSearchModal from '../ImageSearchModal/ImageSearchModal';
 import fire from '../../Firebase/Fire';
 
 function IdeaEdit(props) {
 
+  // Setting page title
   useEffect(() => {
     document.title = "Han-DIY | Edit";
   }, []);
@@ -24,17 +26,19 @@ function IdeaEdit(props) {
   })
 
   const [ disableSaveButton, setDisableSaveButton ] = useState(true);
+  const [ imageUrl, setImageUrl ] = useState('');	
+  const [ previewImageUrl, setPreviewImageUrl ] = useState('');	
+  const [ displaySearchModal, setDisplaySearchModal ] = useState(false);
 
   // Initial load of data from firestore
   useEffect(() => {
-    const fetchData = async () => {
-      const db = fire.firestore();
-      db
-      .collection("ideas")
-      // Matching firestore document id
-      // with requestedIdeaId
-      .doc(requestedIdeaId)
-      .onSnapshot((querySnapshot) => {
+    const fetchData = fire
+    .firestore()
+    .collection("ideas")
+    // Matching firestore document id
+    // with requestedIdeaId
+    .doc(requestedIdeaId)
+    .onSnapshot((querySnapshot) => {
         // Setting idea state with received data
         setFormData({
           ...querySnapshot.data(),
@@ -46,9 +50,10 @@ function IdeaEdit(props) {
           tools: querySnapshot.data().tools.join(', '),
           parts: querySnapshot.data().parts.join(', '),
         });
-      }, (err) => console.log(err))
-    }
-    fetchData();
+        setImageUrl(querySnapshot.data().imageUrl);
+        setPreviewImageUrl(querySnapshot.data().imageUrl);
+    }, (err) => console.log(err))
+    return () => fetchData();
   }, [requestedIdeaId]);
 
   // Form submit handler
@@ -63,7 +68,7 @@ function IdeaEdit(props) {
     // Updating the idea key value pairs
     .update({
       title: formData.title,
-      imageUrl: formData.imageUrl,
+      imageUrl: formData.imageUrl || 'https://unsplash.com/photos/82TpEld0_e4/download?force=true&w=640',
       description: formData.description,
       category: formData.category,
       tools: (formData.tools).split(', '),
@@ -71,7 +76,9 @@ function IdeaEdit(props) {
       link: formData.link,
       notes: formData.notes
     })
-    .then(() => props.history.push(`/ideas`))
+    .then(() => {
+      props.history.push(`/ideas`);
+    })
     .catch((err) => console.log(err));
   }
 
@@ -98,6 +105,28 @@ function IdeaEdit(props) {
     }
   }
 
+  // Button handler to trigger image search modal	
+  const searchModalButtonHandler = () => {	
+    setDisplaySearchModal(true);	
+  }	
+
+  // Cancel button handler	
+  // to hide search image modal	
+  const cancelImageSearchButtonHandler = () => {	
+    setDisplaySearchModal(false);	
+  }	
+
+  // Click handler to be used by search modal	
+  // when image is clicked upon	
+  const imageClickHandler = (imageId) => {	
+    let imageUrlFromModal = `https://unsplash.com/photos/${imageId}/download?force=true&w=1920`	
+    setFormData(prev => ({...prev, imageUrl: imageUrlFromModal}))	
+    setImageUrl(imageUrlFromModal);	
+    // Setting lower resolution image for thumbnail	
+    setPreviewImageUrl(`https://unsplash.com/photos/${imageId}/download?force=true&w=640`)	
+    setDisplaySearchModal(false);	
+  }
+
   return (
     <section className="edit">
       <div className="edit__block container">
@@ -120,16 +149,33 @@ function IdeaEdit(props) {
               placeholder="Title for your idea"
             />
           </div>
+          <div className="edit__block-form-input edit__block-form-input--search">
+            <label className="edit__block-form-input-label" htmlFor="title">Cover image</label>
+            <button
+              className="edit__block-form-input-button edit__block-form-input-button--search"
+              onClick={searchModalButtonHandler}
+              type="button">Search cover image</button>
+            {/* Displaying thumbnail only if image is choosen by the user
+                and the url is set in the state
+            */}
+            {
+              imageUrl
+              ? <div className="edit__block-form-input-thumbnail">
+                  <img className="edit__block-form-input-thumbnail-img" src={previewImageUrl} alt="Cover thumbnail"/>
+                </div>
+              : <div></div>
+            }
+          </div>
           <div className="edit__block-form-input">
             <label className="edit__block-form-input-label" htmlFor="category">Category</label>
             <select
-              className="create__block-form-input-field"
+              className="edit__block-form-input-field"
               name="category"
               value={formData.category}
               onChange={handleChange}
               onBlur={handleChange}
               id="category">
-              <option value="">Choose Category</option>
+              <option value="">Choose category</option>
               <option value="Build">Build</option>
               <option value="Craft">Craft</option>
               <option value="Decorate">Decorate</option>
@@ -217,6 +263,12 @@ function IdeaEdit(props) {
             </button>
           </div>
         </form>
+      </div>
+      <div className={displaySearchModal ? "search-modal--show" : "search-modal--hidden"}>
+        <ImageSearchModal
+          imageClickHandler={imageClickHandler}
+          cancelImageSearchButtonHandler={cancelImageSearchButtonHandler}
+        />
       </div>
     </section>
   )
