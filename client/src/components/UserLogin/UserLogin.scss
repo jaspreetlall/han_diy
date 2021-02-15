@@ -1,0 +1,64 @@
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.login {
+	&__block {
+		&-title {
+			@include fs-page-title;
+			color: $color-dark;
+			padding: 20px 0 4px 0;
+		}
+		&-form {
+			&-input {
+				@include flex(column, flex-start, flex-start);
+				width: 100%;
+				position: relative;
+				&--buttons {
+					@include flex(row-reverse, space-between, center);
+					padding: 20px 0 20px 0;
+				}
+				&-label {
+					@include fs-input-title;
+					color: $color-dark;
+					width: 100%;
+					padding: 16px 0 6px 0;
+				}
+				&-field {
+					background-color: $fill-white;
+					border-radius: $border-radius;
+					border: $border-style;
+					color: $color-dark;
+					filter: $shadow-filter-drop;
+					height: 36px;
+					width: 100%;
+					resize: none;
+					padding: 0 0 0 8px;
+				}
+				&-button {
+					@include button;
+          @include fs-button;
+          color: $color-light;
+          text-shadow: $shadow-text;
+					background-color: $fill-han-diy-secondary;
+					width: 48%;
+					&:hover {
+						background-color: $fill-hover-secondary-dark;
+					}
+					&--login {
+						background-color: $fill-han-diy-primary;
+						&:hover {
+							background-color: $fill-hover-primary-dark;
+						}
+						&:disabled {
+							background-color: $fill-disabled-button;
+						}
+					}
+				}
+			}
+      &-error {
+        @include fs-input-title;
+        color: $color-warning;
+      }
+		}
+	}
+}
