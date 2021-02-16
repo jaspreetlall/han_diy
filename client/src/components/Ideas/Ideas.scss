@@ -13,7 +13,6 @@
 			&-title {
 				@include fs-input-title;
 				color: $color-dark;
-				// padding-bottom: 8px;
 			}
 			&-filter {
 				@include flex(row, flex-start, center);
