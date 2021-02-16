@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TextClamp from 'react-string-clamp';
 import DeleteConfirmation from '../DeleteConfirmation/DeleteConfirmation';
+import KijijiSearchModal from '../KijijiSearchModal/KijijiSearchModal';
 import EditIcon from '../../assets/icons/edit-white-48dp.svg';
 import DeleteIcon from '../../assets/icons/delete-white-48dp.svg';
+import KijijiLogo from '../../assets/logos/Kijiji-Logo.svg'
 import './IdeaDetails.scss';
 import fire from '../../Firebase/Fire';
 
@@ -20,7 +22,9 @@ function IdeaDetails(props) {
     done: false,
     notes: ''
   });
-  const [ displayModal, setDisplayModal ] = useState(false);
+
+  const [ displayDeleteModal, setDisplayDeleteModal ] = useState(false);
+  const [ displayKijijiModal, setDisplayKijijiModal ] = useState(false);
 
   // Setting page title
   useEffect(() => {
@@ -32,13 +36,20 @@ function IdeaDetails(props) {
   // Delete button handler
   // to display confirmation modal
   const deleteButtonHandler = () => {
-    setDisplayModal(true);
+    setDisplayDeleteModal(true);
+  }
+
+  // Delete button handler
+  // to display confirmation modal
+  const kijijiSearchButtonHandler = () => {
+    setDisplayKijijiModal(true);
   }
 
   // Cancel button handler
   // to hide confirmation modal
   const cancelButtonHandler = () => {
-    setDisplayModal(false);
+    setDisplayDeleteModal(false);
+    setDisplayKijijiModal(false);
   }
 
   // Getting idea details from firestore
@@ -122,6 +133,15 @@ function IdeaDetails(props) {
               </div>
               <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Tools:</h3>
+                <button
+                  className="idea__card-body-detail-kijiji"
+                  onClick={kijijiSearchButtonHandler}>
+                  <img
+                    src={KijijiLogo}
+                    className="idea__card-body-detail-kijiji-logo"
+                    alt="Kijiji logo"
+                  />
+                </button>
                 {/* Displaying array as a comma separated string */}
                 <p className="idea__card-body-detail-para">{idea.tools.join(", ")}</p>
               </div>
@@ -171,7 +191,15 @@ function IdeaDetails(props) {
             </button>
           </div>
         </article>
-        <div className={displayModal ? "delete-modal--show" : "delete-modal--hidden"}>
+        {/* Kijiji search modal */}
+        <div className={displayKijijiModal ? "delete-modal--show" : "delete-modal--hidden"}>
+          <KijijiSearchModal
+            cancelButtonHandler={cancelButtonHandler}
+            tools={idea.tools}
+          />
+        </div>
+        {/* Delete confirmation modal */}
+        <div className={displayDeleteModal ? "delete-modal--show" : "delete-modal--hidden"}>
           <DeleteConfirmation
             cancelButtonHandler={cancelButtonHandler}
             deleteConfirmationHandler={deleteConfirmationHandler}

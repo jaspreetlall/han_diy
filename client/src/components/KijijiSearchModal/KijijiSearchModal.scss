@@ -1,0 +1,108 @@
+@import "../../styles/global";
+@import "../../styles/mixins";
+
+.kijiji-search {
+	@include flex(row, center, center);
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 3;
+	background-color: $fill-warning-background;
+	&__block {
+		@include flex(column, space-between, center);
+		filter: $shadow-filter-drop;
+		border-radius: $border-radius;
+		background-color: $fill-han-diy-light;
+		padding: 16px;
+		width: 100%;
+		max-height: 80vh;
+		overflow: scroll;
+		&-message {
+			text-align: center;
+			&-title {
+				padding-top: 8px;
+				&-logo {
+					height: 32px
+				}
+			}
+			&-para {
+				@include fs-paragraph;
+				padding: 14px 0 16px 0;
+				color: $color-dark;
+			}
+		}
+		&-results {
+			margin-bottom: 20px;
+			&-item {
+				border: $border-style;
+				border-radius: $border-radius;
+				background-color: $fill-white;
+				margin: 20px 0;
+				height: 70px;
+				overflow: hidden;
+				&:first-of-type {
+					margin-top: 0;
+				}
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+				&-link {
+					@include flex(row, flex-start, center);
+					text-decoration: none;
+					color: $color-dark;
+					&-wrapper {
+						overflow: hidden;
+						width: 70px;
+						height: 70px;
+						&-img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+						}
+					}
+					&-desc {
+						width: calc(100% - 70px);
+						padding: 6px 8px 6px 8px;
+						height: 70px;
+						@include flex(column, flex-start, flex-start);
+						&-title {
+							@include fs-input-title;
+							font-weight: 700;
+							padding-bottom: 4px;
+						}
+						&-price {
+							@include fs-input-title;
+						}
+					}
+				}
+			}
+		}
+		&-search {
+			margin-bottom: 20px;
+			&-term {
+				@include button-mini;
+				@include fs-button-mini;
+				&--current {
+					background-color: $fill-han-diy-primary;
+					color: $color-light;
+				}
+			}
+		}
+		&-button {
+			@include flex(row, center, center);
+			width: 100%;
+			&-back {
+				@include button;
+				@include fs-button;
+				color: $color-light;
+				background-color: $fill-han-diy-secondary;
+				text-shadow: $shadow-text;
+				width: 48%;
+				&:hover {
+					background-color: $fill-hover-secondary-dark;
+				}
+			}
+		}
+	}
+}

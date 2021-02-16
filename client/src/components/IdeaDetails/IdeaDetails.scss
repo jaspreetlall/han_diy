@@ -43,6 +43,7 @@
 			border-top: $border-style;
 			margin: 0 8px 20px 8px;
 			&-detail {
+				position: relative;
 				overflow: hidden;
 				&-title {
 					@include fs-detail-text;
@@ -56,6 +57,25 @@
 					padding-top: 6px;
 					display: inline-block;
 					max-width: 100%;
+				}
+				&-kijiji {
+					position: absolute;
+					top: 13px;
+					left: 42px;
+					background-color: $fill-white;
+					text-align: center;
+					border: none;
+					cursor: pointer;
+					height: 22px;
+					border-radius: $border-radius;
+					padding: 2px 7px 0 7px;
+					transition: all linear 0.2s;
+					&:hover {
+						filter: $shadow-filter-drop;
+					}
+					&-logo {
+						height: 16px;
+					}
 				}
 				&--single-line {
 					@include flex(row, flex-start, baseline);
