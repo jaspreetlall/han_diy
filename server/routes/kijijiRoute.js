@@ -14,7 +14,7 @@ router
   };
   // Params for Kijiji search
   let params = {
-    q: request.body.searchTerm,
+    q: request.query.search,
     locationId: kijiji.locations.BRITISH_COLUMBIA.GREATER_VANCOUVER_AREA,
     categoryId: kijiji.categories.BUY_AND_SELL,
     priceType: 'SPECIFIED_AMOUNT',
