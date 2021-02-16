@@ -19,6 +19,7 @@
 				flex-wrap: wrap;
 				&-button {
 					@include button-mini;
+					@include fs-button-mini;
 					&--current {
 						background-color: $fill-han-diy-primary;
 						color: $color-light;
