@@ -35,12 +35,35 @@
 				text-shadow: $shadow-text-dark;
 			}
 		}
-		&-user {
-			height: 34px;
-			&-img {
-				height: 34px;
-				filter: $shadow-filter-drop;
+		&-logout {
+			@include flex-center;
+			height: 100%;
+			width: 25px;
+			&-button {
+				background-color: transparent;
+				text-align: center;
+				border: none;
+				padding: 4px 4px 2px 4px;
+				cursor: pointer;
+				&:hover {
+					background-color: $fill-hover-primary-dark;
+					border-radius: $border-radius;
+				}
+				&-img {
+					height: 22px;
+					filter: $shadow-filter-drop;
+				}
 			}
 		}
+	}
+}
+
+// Signout modal
+.signout-modal {
+	&--hidden {
+		display: none;
+	}
+	&--show {
+		display: block;
 	}
 }
