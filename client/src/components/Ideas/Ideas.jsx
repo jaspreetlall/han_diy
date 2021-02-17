@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-// import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Ideas.scss';
 import EditIcon from '../../assets/icons/edit-white-48dp.svg';
 import ViewIcon from '../../assets/icons/view-white-48dp.svg';
 import fire from '../../Firebase/Fire';
 
-function Ideas() {
+function Ideas({userId}) {
   // Setting page title
   useEffect(() => {
     document.title = `Han-DIY | Saved ideas`;
@@ -31,29 +30,52 @@ function Ideas() {
       // pushing category into categoriesFromResults
       querySnapshot.forEach((idea) => {
         ideaArrayFromResults.push({id: idea.id, ...idea.data()});
-        categoriesFromResults.push(idea.data().category);
       })
-      // Setting state for available categories in
-      // while removing duplicates using [...new Set()]
-      setCategories([...new Set(categoriesFromResults)]);
-      // Depending on the ideaFilter, setting the state
-      // of ideaArray, which is mapped over to display cards
-      (ideaFilter === "All")
-        // Setting all ideaArray
-        ? setIdeaArray(
+      // Setting states for ideaArray and categories
+      // when no filter is set by the user
+      if (ideaFilter === "All") {
+        // Setting ideaArray state with ideas
+        setIdeaArray(
           ideaArrayFromResults
-          .slice()
+          // that belong to the current userId
+          .filter(idea => idea.userId === userId)
+          // while sorting with respect to the timestamp
           .sort((a,b) => b.timestamp - a.timestamp)
-        )
-        // Setting ideaArray with filtered ideas
-        : setIdeaArray(
+        );
+        // Getting categories from the ideas
+        ideaArrayFromResults.forEach((idea) => {
+          // that belong to the current userId
+          if (idea.userId === userId) {
+            categoriesFromResults.push(idea.category);
+          }
+        });
+        // and setting those into state after removing
+        // using [...new Set()]
+        setCategories([...new Set(categoriesFromResults)]);
+      } else {
+        // Setting ideaArray state with ideas
+        // when filter is set by the user
+        setIdeaArray(
           ideaArrayFromResults
-          .filter(idea => idea.category === ideaFilter)
+          // that belong to the current userId && pass the category filter
+          .filter(idea => idea.userId === userId && idea.category === ideaFilter)
+          // while sorting with respect to the timestamp
           .sort((a,b) => b.timestamp - a.timestamp)
-        )
+        );
+        // Getting categories from the ideas
+        ideaArrayFromResults.forEach((idea) => {
+          // that belong to the current userId && pass the category filter
+          if (idea.userId === userId && idea.userId === userId) {
+            categoriesFromResults.push(idea.category);
+          }
+        });
+        // and setting those into state after removing
+        // using [...new Set()]
+        setCategories([...new Set(categoriesFromResults)]);
+      }
     }, (err) => console.log(err))
     return () => fetchData();
-  }, [ideaFilter])
+  }, [ideaFilter, userId])
 
   // Function to toggle classes on Category filter
   // buttons depending on current filter set
