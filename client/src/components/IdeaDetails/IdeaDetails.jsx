@@ -132,6 +132,11 @@ function IdeaDetails(props) {
                 <p className="idea__card-body-detail-para">{idea.description}</p>
               </div>
               <div className="idea__card-body-detail">
+                <h3 className="idea__card-body-detail-title">Parts:</h3>
+                {/* Displaying array as a comma separated string */}
+                <p className="idea__card-body-detail-para">{idea.parts.join(", ")}</p>
+              </div>
+              <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Tools:</h3>
                 <button
                   className="idea__card-body-detail-kijiji"
@@ -146,17 +151,12 @@ function IdeaDetails(props) {
                 <p className="idea__card-body-detail-para">{idea.tools.join(", ")}</p>
               </div>
               <div className="idea__card-body-detail">
-                <h3 className="idea__card-body-detail-title">Parts:</h3>
-                {/* Displaying array as a comma separated string */}
-                <p className="idea__card-body-detail-para">{idea.parts.join(", ")}</p>
-              </div>
-              <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Notes:</h3>
                 <p className="idea__card-body-detail-para">{idea.notes}</p>
               </div>
               <div className="idea__card-body-detail">
                 <h3 className="idea__card-body-detail-title">Reference link:</h3>
-                <a className="idea__card-body-detail-para" href={idea.link}>{idea.link}</a>
+                <a className="idea__card-body-detail-para" href={idea.link} target="_blank" rel="noreferrer">{idea.link}</a>
               </div>
               <div className="idea__card-body-detail idea__card-body-detail--single-line">
                 <h3 className="idea__card-body-detail-title">Category:</h3>
