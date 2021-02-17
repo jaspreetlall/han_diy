@@ -43,17 +43,21 @@ function KijijiSearchModal({cancelButtonHandler, tools}) {
           <p className="kijiji-search__block-message-para">Quick search local listings for tools</p>
         </div>
         <div className="kijiji-search__block-search">
-          {tools.map((tool, index) => {
-            return (
-              <button
-                className={toggleSearcButtonClass(tool)}
-                key={index}
-                onClick={() => toolSearchButtonHandler(tool)}>{tool}
-              </button>
-            )
-          })}
+          {/* Returning the 'search term' buttons from the tools array */}
+          {
+            tools.map((tool, index) => {
+              return (
+                <button
+                  className={toggleSearcButtonClass(tool)}
+                  key={index}
+                  onClick={() => toolSearchButtonHandler(tool)}>{tool}
+                </button>
+              )
+            })
+          }
         </div>
         <ul className="kijiji-search__block-results">
+          {/* Returning list items for each search result from Kijiji */}
           {
             searchResultsArray.map((ad, index) => {
               return (
