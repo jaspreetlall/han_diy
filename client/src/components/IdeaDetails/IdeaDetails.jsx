@@ -45,8 +45,8 @@ function IdeaDetails(props) {
     setDisplayKijijiModal(true);
   }
 
-  // Cancel button handler
-  // to hide confirmation modal
+  // Cancel button handler to hide
+  // confirmation / kijiji search modal
   const cancelButtonHandler = () => {
     setDisplayDeleteModal(false);
     setDisplayKijijiModal(false);
