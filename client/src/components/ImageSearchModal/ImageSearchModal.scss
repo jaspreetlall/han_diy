@@ -14,10 +14,16 @@
 		filter: $shadow-filter-drop;
 		border-radius: $border-radius;
 		background-color: $fill-han-diy-light;
-		padding: 8px 16px 16px 16px;
+		padding: 16px;
 		width: 100%;
 		max-height: 80vh;
 		overflow: scroll;
+		&-title {
+			padding: 8px 0 16px 0;
+			&-logo {
+				height: 32px
+			}
+		}
 		&-form {
 			width: 100%;
 			&-input {

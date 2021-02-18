@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './ImageSearchModal.scss';
 import Axios from 'axios';
+import UnsplashLogo from '../../assets/logos/Unsplash_Logo.png';
+import './ImageSearchModal.scss';
 
 const unsplashApiKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const apiUrl = "https://api.unsplash.com/search/photos";
@@ -33,6 +34,9 @@ function ImageSearchModal({cancelImageSearchButtonHandler, imageClickHandler}) {
   return (
     <div className="img-search">
       <div className="img-search__block container">
+        <h3 className="img-search__block-title">
+          <img className="img-search__block-title-logo" src={UnsplashLogo} alt="Unsplash"/>
+        </h3>
         <div className="img-search__block-images">
           {
             imageArray.map((image) => {
