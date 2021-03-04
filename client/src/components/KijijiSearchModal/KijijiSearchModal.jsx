@@ -4,6 +4,10 @@ import './KijijiSearchModal.scss';
 import KijijiLogo from '../../assets/logos/Kijiji-Logo.svg';
 import TextClamp from 'react-string-clamp';
 
+const API_URL = process.env.NODE_ENV === "production"
+  ? 'https://han-diy-api.herokuapp.com'
+  : 'http://localhost:8080';
+
 // Component requires handler for cancel button
 // as well as tools array to be passed as props
 
@@ -18,7 +22,7 @@ function KijijiSearchModal({cancelButtonHandler, tools}) {
   const toolSearchButtonHandler = (searchTerm) => {
     setSearchTool(searchTerm)
     Axios
-    .get(`http://localhost:8080/kijiji/?search=${searchTerm}`)
+    .get(`${API_URL}/kijiji/?search=${searchTerm}`)
     .then((res) => setSearchResultsArray(res.data))
     .catch(err => console.log(err))
   }

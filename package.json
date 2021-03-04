@@ -1,0 +1,25 @@
+{
+  "name": "han-diy",
+  "version": "1.0.0",
+  "description": "Han-DIY is a mobile web app to save your DIY poject ideas and keep them handy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "start": "npm start --prefix server",
+    "server": "nodemon server --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix server && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaspreetlall/jaspreet-lall-han_diy.git"
+  },
+  "keywords": [],
+  "author": "Jaspreet Singh Lall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaspreetlall/jaspreet-lall-han_diy/issues"
+  },
+  "homepage": "https://github.com/jaspreetlall/jaspreet-lall-han_diy#readme"
+}
