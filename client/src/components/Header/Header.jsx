@@ -49,7 +49,7 @@ function Header() {
             ? <button
                 className="header__block-logout-button"
                 onClick={signoutButtonHandler}>
-                <img className="header__block-logout-button-img" src={LogoutIcon} alt="User icon"/>
+                <img className="header__block-logout-button-img" src={LogoutIcon} alt="Logout icon"/>
               </button>
             : <></>
           }

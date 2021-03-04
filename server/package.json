@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Brainstation Capstone Project Han-DIY",
+  "description": "Han-DIY is a mobile web app to save your DIY poject ideas and keep them handy.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -5,7 +5,7 @@ import KijijiLogo from '../../assets/logos/Kijiji-Logo.svg';
 import TextClamp from 'react-string-clamp';
 
 const API_URL = process.env.NODE_ENV === "production"
-  ? 'https://han-diy-api.herokuapp.com'
+  ? 'https://han-diy.herokuapp.com'
   : 'http://localhost:8080';
 
 // Component requires handler for cancel button
