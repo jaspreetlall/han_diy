@@ -59,6 +59,7 @@ select {
 // Global container class
 .container {
 	width: 87.5vw;
+	max-width: 512px;
 	margin-left: auto;
 	margin-right: auto;
 }
