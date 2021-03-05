@@ -164,7 +164,21 @@ function Ideas({userId}) {
     return (
       <section className="ideas">
         <div className="ideas__block container">
-          <h2 className="ideas__block-title">Please wait...</h2>
+          <h2 className="ideas__block-title">Loading ideas...</h2>
+          <div
+            className="ideas__block-card"
+            style={{
+              background: `linear-gradient(270deg, #ffffff 55%, rgba(255, 255, 255, 0) 100%), url("https://unsplash.com/photos/_Yc7OtfFn-0/download?force=true&w=640")`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }}
+          >
+            <div className="ideas__block-card-info">
+              <h3 className="ideas__block-card-info-title">+ Create to begin</h3>
+              <span className="ideas__block-card-info-status ideas__block-card-info-status--complete">Your saved ideas will be displayed here.</span>
+            </div>
+          </div>
         </div>
       </section>
     )
