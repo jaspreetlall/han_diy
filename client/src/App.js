@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header/Header';
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Ideas from './components/Ideas/Ideas';
 import IdeaCreate from './components/IdeaCreate/IdeaCreate';
